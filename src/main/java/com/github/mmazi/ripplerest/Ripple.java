@@ -4,6 +4,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
+// todo: Consider creating a wrapper that unwraps the response
 @Path("v1")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -29,6 +30,10 @@ public interface Ripple {
     @GET
     @Path("server/connected")
     public ConnectedResponse isServerConnected();
+
+    @GET
+    @Path("server")
+    public ServerInfoResponse getServerInfo();
 
     @GET
     @Path("uuid")

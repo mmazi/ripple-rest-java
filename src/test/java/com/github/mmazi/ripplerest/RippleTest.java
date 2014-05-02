@@ -97,6 +97,16 @@ public class RippleTest extends TestCase {
     }
 
     @Test
+    public void testServerInfo() throws Exception {
+        final ServerInfoResponse serverInfoResponse = ripple.getServerInfo();
+        assertResponse(serverInfoResponse);
+        Assert.assertTrue(serverInfoResponse.getRippledServerUrl().contains("://"));
+        final RippledServerStatus rippledServerStatus = serverInfoResponse.getRippledServerStatus();
+        Assert.assertTrue(rippledServerStatus.getLastClose().getConvergeTimeS() < 100);
+        Assert.assertTrue(rippledServerStatus.getValidatedLedger().getSeq() >= 6404992);
+    }
+
+    @Test
     public void testServerConnected() throws Exception {
         final ConnectedResponse serverConnected = ripple.isServerConnected();
         assertResponse(serverConnected);
