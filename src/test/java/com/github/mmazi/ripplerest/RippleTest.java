@@ -8,12 +8,20 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import si.mazi.rescu.RestProxyFactory;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class RippleTest extends TestCase {
 
-    public static final String ADDRESS = "rQroSB4DstxmPKNaKou4D2SJLrTL9VsLDh";
+    public static final String ADDRESS1 = "rQroSB4DstxmPKNaKou4D2SJLrTL9VsLDh";
+    public static final String ADDRESS2 = "rhiAtoMmU2hFuzS6eWdtix29doajBLwatM";
+
+    public static final String ADDRESS1_SECRET = "sanGEaJxs4Q9buPXmYjeGYgvdtzbX";
+
+    public static final String ADDRESS2_SECRET = "ssfSZYo2zikb7brQYHBmcE21rZfAN";
 
     private static final Logger log = LoggerFactory.getLogger(RippleTest.class);
 
@@ -36,12 +44,12 @@ public class RippleTest extends TestCase {
 
     @Test
     public void testGetBalances() throws Exception {
-        final BalancesResponse balancesResponse = ripple.getBalances("rQroSB4DstxmPKNaKou4D2SJLrTL9VsLDh");
+        final BalancesResponse balancesResponse = ripple.getBalances(ADDRESS1);
         assertResponse(balancesResponse);
-        final List<Balance> balances = balancesResponse.getBalances();
+        final List<Amount> balances = balancesResponse.getBalances();
         Assert.assertFalse(balances.isEmpty());
         boolean xrpFound = false;
-        for (Balance balance : balances) {
+        for (Amount balance : balances) {
             if (balance.getCurrency().equals("XRP")) {
                 xrpFound = true;
                 Assert.assertTrue(balance.getValue().intValue() > 0);
@@ -52,12 +60,45 @@ public class RippleTest extends TestCase {
 
     @Test
     public void testGetSettings() throws Exception {
-        final SettingsResponse balancesResponse = ripple.getSettings(ADDRESS);
+        final SettingsResponse balancesResponse = ripple.getSettings(ADDRESS1);
         assertResponse(balancesResponse);
         final AccountSettings settings = balancesResponse.getSettings();
         Assert.assertTrue(settings.getTransactionSequence() >= 1);
     }
 
+    @Test
+    public void testSetSettings() throws Exception {
+        AccountSettings settings = ripple.getSettings(ADDRESS1).getSettings();
+        final Boolean originalValue = settings.getRequireDestinationTag();
+        setRequireDestinationTag(settings, !originalValue);
+        setRequireDestinationTag(settings, originalValue);
+    }
+
+    private void setRequireDestinationTag(AccountSettings settings, Boolean set) throws IOException {
+        settings.setRequireDestinationTag(set);
+        final String uuid = createUUID();
+        final SettingsResponse result = ripple.setSettings(ADDRESS1, new SetSettingsRequest(ADDRESS1_SECRET, uuid, settings));
+        assertResponse(result);
+        assertEquals(result.getSettings().getRequireDestinationTag(), set);
+        settings = ripple.getSettings(ADDRESS1).getSettings();
+        Assert.assertEquals(settings.getRequireDestinationTag(), set);
+    }
+
+    // TODO: test new AccountSettings().
+
+    @Test
+    public void testPayment() throws Exception {
+        final PaymentResponse paymentResponse = ripple.pay(new PaymentRequest(ADDRESS1_SECRET, createUUID(), new Payment(
+                ADDRESS1, ADDRESS2, new Amount(BigDecimal.valueOf(1), "XRP")
+        )));
+        assertResponse(paymentResponse);
+        Assert.assertNotNull(paymentResponse.getStatusUrl());
+        log.info("Payment status url: {}", paymentResponse.getStatusUrl());
+    }
+
+    private String createUUID() {
+        return UUID.randomUUID().toString();
+    }
 
     private void assertResponse(RippleResponse response) {
         Assert.assertNotNull(response);

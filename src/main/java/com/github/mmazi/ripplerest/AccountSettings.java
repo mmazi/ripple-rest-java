@@ -1,11 +1,13 @@
 package com.github.mmazi.ripplerest;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 
 // todo: Try to figure out the actual types of the properties with no javadocs (currently Strings).
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountSettings {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,48 +66,96 @@ public class AccountSettings {
         return disableMaster;
     }
 
+    public void setDisableMaster(Boolean disableMaster) {
+        this.disableMaster = disableMaster;
+    }
+
     public Boolean getDisallowXrp() {
         return disallowXrp;
+    }
+
+    public void setDisallowXrp(Boolean disallowXrp) {
+        this.disallowXrp = disallowXrp;
     }
 
     public Boolean getPasswordSpent() {
         return passwordSpent;
     }
 
+    public void setPasswordSpent(Boolean passwordSpent) {
+        this.passwordSpent = passwordSpent;
+    }
+
     public Boolean getRequireAuthorization() {
         return requireAuthorization;
+    }
+
+    public void setRequireAuthorization(Boolean requireAuthorization) {
+        this.requireAuthorization = requireAuthorization;
     }
 
     public Boolean getRequireDestinationTag() {
         return requireDestinationTag;
     }
 
+    public void setRequireDestinationTag(Boolean requireDestinationTag) {
+        this.requireDestinationTag = requireDestinationTag;
+    }
+
     public Long getTransactionSequence() {
         return transactionSequence;
+    }
+
+    public void setTransactionSequence(Long transactionSequence) {
+        this.transactionSequence = transactionSequence;
     }
 
     public String getEmailHash() {
         return emailHash;
     }
 
+    public void setEmailHash(String emailHash) {
+        this.emailHash = emailHash;
+    }
+
     public String getWalletLocator() {
         return walletLocator;
+    }
+
+    public void setWalletLocator(String walletLocator) {
+        this.walletLocator = walletLocator;
     }
 
     public String getMessageKey() {
         return messageKey;
     }
 
+    public void setMessageKey(String messageKey) {
+        this.messageKey = messageKey;
+    }
+
     public String getDomain() {
         return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public BigDecimal getTransferRate() {
         return transferRate;
     }
 
+    public void setTransferRate(BigDecimal transferRate) {
+        this.transferRate = transferRate;
+    }
+
     public String getSigners() {
         return signers;
+    }
+
+    public void setSigners(String signers) {
+        this.signers = signers;
     }
 }
 

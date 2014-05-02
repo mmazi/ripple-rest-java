@@ -37,15 +37,22 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.mmazi</groupId>
+            <artifactId>rescu</artifactId>
+            <version>1.6.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+            <!-- todo: optional? -->
+        </dependency>
+
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.1.1</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.mmazi</groupId>
-            <artifactId>rescu</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -54,6 +61,25 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <version>0.4.1</version>
+                <configuration>
+                    <sourceDirectory>${basedir}/../ripple-rest/schemas</sourceDirectory>
+                    <targetPackage>com.github.mmazi.ripplerest.gen</targetPackage>
+                    <includeJsr303Annotations>true</includeJsr303Annotations>
+                    <outputEncoding>UTF-8</outputEncoding>
+                    <outputDirectory>${basedir}/src/main/java</outputDirectory>
+                    <includeHashcodeAndEquals>false</includeHashcodeAndEquals>
+                    <includeToString>false</includeToString>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
