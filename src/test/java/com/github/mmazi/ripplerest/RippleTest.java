@@ -70,11 +70,11 @@ public class RippleTest extends TestCase {
     public void testSetSettings() throws Exception {
         AccountSettings settings = ripple.getSettings(ADDRESS1).getSettings();
         final Boolean originalValue = settings.getRequireDestinationTag();
-        setRequireDestinationTag(settings, !originalValue);
-        setRequireDestinationTag(settings, originalValue);
+        testSetRequireDestinationTag(settings, !originalValue);
+        testSetRequireDestinationTag(settings, originalValue);
     }
 
-    private void setRequireDestinationTag(AccountSettings settings, Boolean set) throws IOException {
+    private void testSetRequireDestinationTag(AccountSettings settings, Boolean set) throws IOException {
         settings.setRequireDestinationTag(set);
         final String uuid = createUUID();
         final SettingsResponse result = ripple.setSettings(ADDRESS1, new SetSettingsRequest(ADDRESS1_SECRET, uuid, settings));
@@ -94,6 +94,13 @@ public class RippleTest extends TestCase {
         assertResponse(paymentResponse);
         Assert.assertNotNull(paymentResponse.getStatusUrl());
         log.info("Payment status url: {}", paymentResponse.getStatusUrl());
+    }
+
+    @Test
+    public void testServerConnected() throws Exception {
+        final ConnectedResponse serverConnected = ripple.isServerConnected();
+        assertResponse(serverConnected);
+        Assert.assertTrue(serverConnected.isConnected());
     }
 
     private String createUUID() {

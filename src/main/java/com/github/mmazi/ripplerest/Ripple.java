@@ -27,6 +27,10 @@ public interface Ripple {
 
 
     @GET
+    @Path("server/connected")
+    public ConnectedResponse isServerConnected();
+
+    @GET
     @Path("uuid")
     public UuidResponse generateUuid();
 }
