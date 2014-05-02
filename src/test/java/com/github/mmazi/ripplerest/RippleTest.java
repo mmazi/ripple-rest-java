@@ -28,7 +28,6 @@ public class RippleTest extends TestCase {
         final UuidResponse uuidResponse = ripple.generateUuid();
         assertResponse(uuidResponse);
         final String uuid = uuidResponse.getUuid();
-        Assert.assertNotNull(uuid);
         Assert.assertTrue(UUID_PATTERN.matcher(uuid).matches());
     }
 
@@ -37,7 +36,6 @@ public class RippleTest extends TestCase {
         final BalancesResponse balancesResponse = ripple.getBalances("rQroSB4DstxmPKNaKou4D2SJLrTL9VsLDh");
         assertResponse(balancesResponse);
         final List<Balance> balances = balancesResponse.getBalances();
-        Assert.assertNotNull(balances);
         Assert.assertFalse(balances.isEmpty());
         boolean xrpFound = false;
         for (Balance balance : balances) {
@@ -57,5 +55,6 @@ public class RippleTest extends TestCase {
             log.error("Request failed; error: {}; message: {}", response.getError(), response.getMessage());
         }
         Assert.assertTrue(success);
+        Assert.assertNotNull(response.getValue());
     }
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class RippleResponse implements Serializable {
+public abstract class RippleResponse<V> implements Serializable {
     private Boolean success;
 
     private String error;
@@ -13,6 +13,8 @@ public class RippleResponse implements Serializable {
 
     @JsonProperty("client_resource_id")
     private String clientResourceId;
+
+    public abstract V getValue();
 
     public Boolean getSuccess() {
         return success;
