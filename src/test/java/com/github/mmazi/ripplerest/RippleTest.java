@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class RippleTest extends TestCase {
+
+    public static final String ADDRESS = "rQroSB4DstxmPKNaKou4D2SJLrTL9VsLDh";
+
     private static final Logger log = LoggerFactory.getLogger(RippleTest.class);
 
     private static final Pattern UUID_PATTERN = Pattern.compile("([a-f\\d]{8}(-[a-f\\d]{4}){3}-[a-f\\d]{12}?)");
@@ -45,6 +48,14 @@ public class RippleTest extends TestCase {
             }
         }
         Assert.assertTrue(xrpFound);
+    }
+
+    @Test
+    public void testGetSettings() throws Exception {
+        final SettingsResponse balancesResponse = ripple.getSettings(ADDRESS);
+        assertResponse(balancesResponse);
+        final AccountSettings settings = balancesResponse.getSettings();
+        Assert.assertTrue(settings.getTransactionSequence() >= 1);
     }
 
 

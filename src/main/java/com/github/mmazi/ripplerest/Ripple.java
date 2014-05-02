@@ -12,7 +12,9 @@ public interface Ripple {
     @Path("accounts/{address}/balances")
     public BalancesResponse getBalances(@PathParam("address") String address);
 
-
+    @GET
+    @Path("accounts/{address}/settings")
+    public SettingsResponse getSettings(@PathParam("address") String address);
 
 
 
