@@ -94,14 +94,18 @@ public class RippleTest {
         Assert.assertTrue(settings.getTransactionSequence() >= 1);
     }
 
-    // TODO: test new AccountSettings().
-
     @Test
     public void testSetSettings() throws Exception {
         AccountSettings settings = ripple.getSettings(ADDRESS1).getSettings();
         final Boolean originalValue = settings.getRequireDestinationTag();
         testSetRequireDestinationTag(settings, !originalValue);
         testSetRequireDestinationTag(settings, originalValue);
+    }
+
+    @Test
+    public void testSetSettingsNew() throws Exception {
+        AccountSettings settings = new AccountSettings();
+        testSetRequireDestinationTag(settings, true);
     }
 
     private void testSetRequireDestinationTag(AccountSettings settings, Boolean set) throws IOException {
