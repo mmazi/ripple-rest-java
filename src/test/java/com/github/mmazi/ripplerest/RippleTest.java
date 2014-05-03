@@ -21,8 +21,8 @@ public class RippleTest extends TestCase {
     public static final String ADDRESS1 = "rDiWNyxZqEfRrdsNbPPwgBUZFb4Xf17cNJ";
     public static final String ADDRESS2 = "rhiAtoMmU2hFuzS6eWdtix29doajBLwatM";
 
-    public static final String ADDRESS1_SECRET = "sanGEaJxs4Q9buPXmYjeGYgvdtzbX";
-    public static final String ADDRESS2_SECRET = "ssx95aBiN5YYHWsuHrosLqyqyJsp2";
+    public static final String ADDRESS2_SECRET = "sanGEaJxs4Q9buPXmYjeGYgvdtzbX";
+    public static final String ADDRESS1_SECRET = "ssx95aBiN5YYHWsuHrosLqyqyJsp2";
 
     private static final Logger log = LoggerFactory.getLogger(RippleTest.class);
 
