@@ -93,6 +93,10 @@ public class Trustline implements Serializable {
 
     ///////////////////////////////////////////////
 
+
+    protected Trustline() {
+    }
+
     public Trustline(BigDecimal limit, String currency, String counterparty) {
         this.counterparty = counterparty;
         this.currency = currency;

@@ -29,9 +29,11 @@ interface Ripple {
     // todo: payment paths
 
     @GET
-    @Path("accounts/{address}/payments/{hash},{client_resource_id}")
-    PaymentResponse getPayment(@PathParam("address") String address, @PathParam("hash") String hash, @PathParam("client_resource_id") String clientResourceId)
-            throws RippleException, IOException;
+    @Path("accounts/{address}/payments/{hash}")
+    PaymentResponse getPayment(
+            @PathParam("address") String address,
+            @PathParam("hash") String hashOrClientResourceId
+    ) throws RippleException, IOException;
 
 
     /**

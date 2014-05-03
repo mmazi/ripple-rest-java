@@ -14,19 +14,19 @@ public class AccountSettings {
     // flags
 
     @JsonProperty("disable_master")
-    private Boolean disableMaster;
+    private Boolean disableMaster = null;
 
     @JsonProperty("disallow_xrp")
-    private Boolean disallowXrp;
+    private Boolean disallowXrp = null;
 
     @JsonProperty("password_spent")
-    private Boolean passwordSpent;
+    private Boolean passwordSpent = null;
 
     @JsonProperty("require_authorization")
-    private Boolean requireAuthorization;
+    private Boolean requireAuthorization = null;
 
     @JsonProperty("require_destination_tag")
-    private Boolean requireDestinationTag;
+    private Boolean requireDestinationTag = null;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // other fields
@@ -35,32 +35,32 @@ public class AccountSettings {
      * A string representation of the last sequence number of a validated transaction created by this account
      */
     @JsonProperty("transaction_sequence")
-    private Long transactionSequence;
+    private Long transactionSequence = null;
 
     /**
      * The MD5 128-bit hash of the account owner's email address
      */
     @JsonProperty("email_hash")
 //    @Pattern(regexp = "^$|^[A-Fa-f0-9]{32}$")
-    private String emailHash;
+    private String emailHash = null;
 
     @JsonProperty("wallet_locator")
-    private String walletLocator;
+    private String walletLocator = null;
 
     @JsonProperty("message_key")
-    private String messageKey;
+    private String messageKey = null;
 
     @JsonProperty("domain")
-    private String domain;
+    private String domain = null;
 
     /**
      * A string representation of the rate charged each time a holder of currency issued by this account transfers it. By default the rate is "1.0". A rate of "1.01" is a 1% charge on top of the amount being transferred. Up to nine decimal places are supported
      */
     @JsonProperty("transfer_rate")
-    private BigDecimal transferRate;
+    private BigDecimal transferRate = null;
 
     @JsonProperty("signers")
-    private String signers;
+    private String signers = null;
 
     public Boolean getDisableMaster() {
         return disableMaster;
