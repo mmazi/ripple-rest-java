@@ -10,7 +10,9 @@ import si.mazi.rescu.RestProxyFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -20,7 +22,6 @@ public class RippleTest extends TestCase {
     public static final String ADDRESS2 = "rhiAtoMmU2hFuzS6eWdtix29doajBLwatM";
 
     public static final String ADDRESS1_SECRET = "sanGEaJxs4Q9buPXmYjeGYgvdtzbX";
-
     public static final String ADDRESS2_SECRET = "ssx95aBiN5YYHWsuHrosLqyqyJsp2";
 
     private static final Logger log = LoggerFactory.getLogger(RippleTest.class);
@@ -86,14 +87,91 @@ public class RippleTest extends TestCase {
 
     // TODO: test new AccountSettings().
 
+    // todo! make this work
     @Test
     public void testPayment() throws Exception {
-        final PaymentResponse paymentResponse = ripple.pay(new PaymentRequest(ADDRESS1_SECRET, createUUID(), new Payment(
-                ADDRESS1, ADDRESS2, new Amount(BigDecimal.valueOf(1), "XRP")
+        final String uuid = createUUID();
+//        final String uuid = "f2f811b7-dc3b-4078-a2c2-e4ca9e453981";
+//        final String uuid = ripple.generateUuid().getUuid();
+        final BigDecimal value = BigDecimal.valueOf(new Random().nextInt(8) + 1);
+        final CreatePaymentResponse createPaymentResponse = ripple.pay(new PaymentRequest(ADDRESS1_SECRET, uuid, new Payment(
+                ADDRESS1, ADDRESS2, new Amount(value, "XRP")
         )));
+        assertResponse(createPaymentResponse);
+        Assert.assertNotNull(createPaymentResponse.getStatusUrl());
+        log.info("Payment status url: {}", createPaymentResponse.getStatusUrl());
+        PaymentResponse paymentResponse = ripple.getPayment(ADDRESS1, null, uuid);
         assertResponse(paymentResponse);
-        Assert.assertNotNull(paymentResponse.getStatusUrl());
-        log.info("Payment status url: {}", paymentResponse.getStatusUrl());
+        Payment pmt = paymentResponse.getPayment();
+        Assert.assertEquals(pmt.getSourceAmount().getValue(), value);
+        final String pmtHash = pmt.getHash();
+        paymentResponse = ripple.getPayment(ADDRESS1, pmtHash, null);
+        assertResponse(paymentResponse);
+        pmt = paymentResponse.getPayment();
+        Assert.assertEquals(pmt.getSourceAmount().getValue(), value);
+        Assert.assertEquals(paymentResponse.getClientResourceId(), uuid);
+    }
+
+    @Test
+    public void testGetPayments() throws Exception {
+        final PaymentsResponse paymentsResponse = ripple.getPayments(ADDRESS1, null, false, null, null, true, 10, 1);
+        assertResponse(paymentsResponse);
+        final List<PaymentWithId> payments = paymentsResponse.getPayments();
+        log.info("Got {} payments.", payments.size());
+        Assert.assertFalse(payments.isEmpty());
+        for (PaymentWithId paymentWithId : payments) {
+            final Payment pmt = paymentWithId.getPayment();
+            Assert.assertTrue(Arrays.asList(pmt.getSourceAccount(), pmt.getDestinationAccount()).contains(ADDRESS1));
+            Assert.assertTrue(pmt.getSourceAmount().getValue().floatValue() > 0);
+        }
+    }
+
+    // todo! make this work
+    @Test
+    public void testTrustlines() throws Exception {
+        TrustlinesResponse trustlinesResponse = ripple.getTrustlines(ADDRESS1, null, null);
+        assertResponse(trustlinesResponse);
+        final int initialTrustlines = trustlinesResponse.getTrustlines().size();
+        log.debug("initialTrustlines = {}", initialTrustlines);
+
+        final BigDecimal value = BigDecimal.ONE;
+        final String clientResourceId = createUUID();
+        final AddTrustlineResponse addTrustlineResponse =
+                ripple.addTrustline(ADDRESS1, AddTrustlineRequest.create(ADDRESS1_SECRET, true, new Trustline(value, "USD", ADDRESS2), clientResourceId));
+        assertResponse(addTrustlineResponse);
+
+        final Trustline addedTrustline = addTrustlineResponse.getTrustline();
+        Assert.assertEquals(addedTrustline.getAccount(), ADDRESS1);
+        Assert.assertEquals(addedTrustline.getCounterparty(), ADDRESS2);
+        Assert.assertEquals(addedTrustline.getCurrency(), "USD");
+        Assert.assertEquals(addedTrustline.getLimit(), value);
+
+
+        trustlinesResponse = ripple.getTrustlines(ADDRESS1, null, null);
+        assertResponse(trustlinesResponse);
+        final List<Trustline> finalTrustlines = trustlinesResponse.getTrustlines();
+        Assert.assertEquals(finalTrustlines.size(), initialTrustlines + 1);
+
+        boolean addedFound = false;
+        for (Trustline finalTrustline : finalTrustlines) {
+            if (finalTrustline.getHash().equals(addedTrustline.getHash())) {
+                addedFound = true;
+            }
+        }
+        Assert.assertTrue(addedFound);
+    }
+
+    @Test
+    public void testNotification() throws Exception {
+        final String hash = "7AB2A0E7E0E8D4A344804DD403AD51282FCABD7FDD74E3571389F46814B73D23";
+        final NotificationResponse notificationResponse = ripple.getNotifictaion(ADDRESS2, hash);
+        assertResponse(notificationResponse);
+        final Notification notification = notificationResponse.getNotification();
+        Assert.assertEquals(notification.getHash(), hash);
+        Assert.assertEquals(notification.getAccount(), ADDRESS2);
+        Assert.assertTrue(notification.getTimestamp().getTime() < System.currentTimeMillis());
+        Assert.assertTrue(notification.getTimestamp().getTime() > 1399046367);
+        Assert.assertTrue(notification.getTransactionUrl().contains(hash));
     }
 
     @Test
@@ -123,7 +201,7 @@ public class RippleTest extends TestCase {
         if (!success) {
             log.error("Request failed; error: {}; message: {}", response.getError(), response.getMessage());
         }
-        Assert.assertTrue(success);
+        Assert.assertTrue(success, "Request failed: " + response.getError() + ": " + response.getMessage());
         Assert.assertNotNull(response.getValue());
     }
 }

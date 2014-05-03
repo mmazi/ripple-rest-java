@@ -1,17 +1,15 @@
 package com.github.mmazi.ripplerest;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+public class PaymentResponse extends RippleResponse<Payment> {
 
-public class PaymentResponse extends RippleResponse<String> {
-    @JsonProperty("status_url")
-    private String statusUrl;
+    private Payment payment;
 
-    public String getStatusUrl() {
-        return statusUrl;
+    public Payment getPayment() {
+        return payment;
     }
 
     @Override
-    public String getValue() {
-        return getStatusUrl();
+    public Payment getValue() {
+        return getPayment();
     }
 }

@@ -185,6 +185,86 @@ public class Payment {
         this.noDirectRipple = noDirectRipple;
     }
 
+    public String getSourceAccount() {
+        return sourceAccount;
+    }
+
+    public Long getSourceTag() {
+        return sourceTag;
+    }
+
+    public Amount getSourceAmount() {
+        return sourceAmount;
+    }
+
+    public BigDecimal getSourceSlippage() {
+        return sourceSlippage;
+    }
+
+    public String getDestinationAccount() {
+        return destinationAccount;
+    }
+
+    public Long getDestinationTag() {
+        return destinationTag;
+    }
+
+    public Amount getDestinationAmount() {
+        return destinationAmount;
+    }
+
+    public String getInvoiceId() {
+        return invoiceId;
+    }
+
+    public String getPaths() {
+        return paths;
+    }
+
+    public Boolean getPartialPayment() {
+        return partialPayment;
+    }
+
+    public Boolean getNoDirectRipple() {
+        return noDirectRipple;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public Long getLedger() {
+        return ledger;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public BigDecimal getFee() {
+        return fee;
+    }
+
+    public List<Amount> getSourceBalanceChanges() {
+        return sourceBalanceChanges;
+    }
+
+    public List<Amount> getDestinationBalanceChanges() {
+        return destinationBalanceChanges;
+    }
+
     public static enum Direction {
         incoming, outgoing, passthrough;
     }

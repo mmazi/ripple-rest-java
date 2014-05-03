@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public abstract class RippleRequest implements Serializable {
 
+    @JsonProperty("secret")
     private String secret;
 
     @JsonProperty("client_resource_id")
