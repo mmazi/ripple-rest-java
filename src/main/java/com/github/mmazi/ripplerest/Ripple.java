@@ -24,7 +24,7 @@ interface Ripple {
 
     @POST
     @Path("payments")
-    CreatePaymentResponse pay(PaymentRequest paymentRequest) throws RippleException, IOException;
+    CreatePaymentResponse createPayment(PaymentRequest paymentRequest) throws RippleException, IOException;
 
     // todo: payment paths
 

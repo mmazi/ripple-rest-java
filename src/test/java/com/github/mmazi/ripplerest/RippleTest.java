@@ -94,7 +94,7 @@ public class RippleTest extends TestCase {
 //        final String uuid = "f2f811b7-dc3b-4078-a2c2-e4ca9e453981";
 //        final String uuid = ripple.generateUuid().getUuid();
         final BigDecimal value = BigDecimal.valueOf(new Random().nextInt(8) + 1);
-        final CreatePaymentResponse createPaymentResponse = ripple.pay(new PaymentRequest(ADDRESS1_SECRET, uuid, new Payment(
+        final CreatePaymentResponse createPaymentResponse = ripple.createPayment(new PaymentRequest(ADDRESS1_SECRET, uuid, new Payment(
                 ADDRESS1, ADDRESS2, new Amount(value, "XRP")
         )));
         assertResponse(createPaymentResponse);
@@ -162,8 +162,8 @@ public class RippleTest extends TestCase {
     }
 
     @Test
-    public void testNotification() throws Exception {
-        final String hash = "7AB2A0E7E0E8D4A344804DD403AD51282FCABD7FDD74E3571389F46814B73D23";
+    public void testGetNotification() throws Exception {
+        final String hash = "C61B3B8849EE84B17B767F0BC5F2BC5CD8D40161C931EAF921CB7201C0417CBC";
         final NotificationResponse notificationResponse = ripple.getNotifictaion(ADDRESS2, hash);
         assertResponse(notificationResponse);
         final Notification notification = notificationResponse.getNotification();
@@ -175,7 +175,7 @@ public class RippleTest extends TestCase {
     }
 
     @Test
-    public void testServerInfo() throws Exception {
+    public void testGetServerInfo() throws Exception {
         final ServerInfoResponse serverInfoResponse = ripple.getServerInfo();
         assertResponse(serverInfoResponse);
         Assert.assertTrue(serverInfoResponse.getRippledServerUrl().contains("://"));
@@ -185,7 +185,7 @@ public class RippleTest extends TestCase {
     }
 
     @Test
-    public void testServerConnected() throws Exception {
+    public void testIsServerConnected() throws Exception {
         final ConnectedResponse serverConnected = ripple.isServerConnected();
         assertResponse(serverConnected);
         Assert.assertTrue(serverConnected.isConnected());
