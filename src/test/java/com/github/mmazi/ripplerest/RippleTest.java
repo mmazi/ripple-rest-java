@@ -16,12 +16,12 @@ import java.util.regex.Pattern;
 
 public class RippleTest extends TestCase {
 
-    public static final String ADDRESS1 = "rQroSB4DstxmPKNaKou4D2SJLrTL9VsLDh";
+    public static final String ADDRESS1 = "rDiWNyxZqEfRrdsNbPPwgBUZFb4Xf17cNJ";
     public static final String ADDRESS2 = "rhiAtoMmU2hFuzS6eWdtix29doajBLwatM";
 
     public static final String ADDRESS1_SECRET = "sanGEaJxs4Q9buPXmYjeGYgvdtzbX";
 
-    public static final String ADDRESS2_SECRET = "ssfSZYo2zikb7brQYHBmcE21rZfAN";
+    public static final String ADDRESS2_SECRET = "ssx95aBiN5YYHWsuHrosLqyqyJsp2";
 
     private static final Logger log = LoggerFactory.getLogger(RippleTest.class);
 
