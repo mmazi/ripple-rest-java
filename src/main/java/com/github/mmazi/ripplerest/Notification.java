@@ -47,7 +47,6 @@ public class Notification implements Serializable {
      * The index number of the ledger containing the validated or failed transaction. Failed payments will only be written into the Ripple Ledger if they fail after submission to a rippled and a Ripple Network fee is claimed
      */
     @JsonProperty("ledger")
-    @Pattern(regexp = "^[0-9]+$")
     private Long ledger;
 
     /**

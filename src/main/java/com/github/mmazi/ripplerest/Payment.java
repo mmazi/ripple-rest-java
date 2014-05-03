@@ -45,7 +45,6 @@ public class Payment {
     private Amount sourceAmount;
 
     @JsonProperty("source_slippage")
-    @Pattern(regexp = "^[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?$")
     private BigDecimal sourceSlippage;
 
     /**
