@@ -70,6 +70,8 @@
                   ../ripple-rest/schemas, eg. when https://github.com/emschwartz/ripple-rest/ is cloned in a sibling
                   directory) . The generated Java benas are not directly useful
                   but good as templates, and should not be kept as part of the project (for now).
+                  NOTE: For some reason, all schema files must be renamed first to drop the .json extension, otherwise
+                  $ref's don't work.
                   Usage:
                   mvn jsonschema2pojo:generate
                 -->
