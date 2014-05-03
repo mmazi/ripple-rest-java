@@ -1,6 +1,5 @@
 package com.github.mmazi.ripplerest;
 
-import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -16,7 +15,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class RippleTest extends TestCase {
+public class RippleTest {
 
     public static final String ADDRESS1 = "rDiWNyxZqEfRrdsNbPPwgBUZFb4Xf17cNJ";
     public static final String ADDRESS2 = "rhiAtoMmU2hFuzS6eWdtix29doajBLwatM";
@@ -95,6 +94,8 @@ public class RippleTest extends TestCase {
         Assert.assertTrue(settings.getTransactionSequence() >= 1);
     }
 
+    // TODO: test new AccountSettings().
+
     @Test
     public void testSetSettings() throws Exception {
         AccountSettings settings = ripple.getSettings(ADDRESS1).getSettings();
@@ -103,14 +104,12 @@ public class RippleTest extends TestCase {
         testSetRequireDestinationTag(settings, originalValue);
     }
 
-    // TODO: test new AccountSettings().
-
     private void testSetRequireDestinationTag(AccountSettings settings, Boolean set) throws IOException {
         settings.setRequireDestinationTag(set);
         final String uuid = createUUID();
         final SettingsResponse result = ripple.setSettings(ADDRESS1, new SetSettingsRequest(ADDRESS1_SECRET, uuid, settings));
         assertResponse(result);
-        assertEquals(result.getSettings().getRequireDestinationTag(), set);
+        Assert.assertEquals(result.getSettings().getRequireDestinationTag(), set);
         settings = ripple.getSettings(ADDRESS1).getSettings();
         Assert.assertEquals(settings.getRequireDestinationTag(), set);
     }
