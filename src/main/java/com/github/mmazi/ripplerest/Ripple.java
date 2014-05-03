@@ -73,19 +73,12 @@ interface Ripple {
             @PathParam("address") String address, AddTrustlineRequest addTrustlineRequest
     ) throws RippleException, IOException;
 
-    // todo: Add trustline using a Trustline object
-
     @GET
     @Path("accounts/{address}/notifications/{hash}")
     NotificationResponse getNotifictaion(
             @PathParam("address") String address, @PathParam("hash")String hash
     ) throws RippleException, IOException;
     
-    
-    
-    
-
-
     @GET
     @Path("server/connected")
     ConnectedResponse isServerConnected() throws RippleException, IOException;

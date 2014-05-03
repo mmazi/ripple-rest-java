@@ -31,6 +31,32 @@ public class RippleTest {
 
     private Ripple ripple;
 
+    private static boolean equalTrustlines(Trustline tl1, Trustline tl2) {
+        if (tl1 == tl2) return true;
+        if (tl2 == null) return false;
+
+        if (tl1.getAccount() != null ? !tl1.getAccount().equals(tl2.getAccount()) : tl2.getAccount() != null) return false;
+        if (tl1.getAccountAllowsRippling() != null ? !tl1.getAccountAllowsRippling().equals(tl2.getAccountAllowsRippling()) : tl2.getAccountAllowsRippling() != null)
+            return false;
+        if (tl1.getAuthorizedByAccount() != null ? !tl1.getAuthorizedByAccount().equals(tl2.getAuthorizedByAccount()) : tl2.getAuthorizedByAccount() != null)
+            return false;
+        if (tl1.getAuthorizedByCounterparty() != null ? !tl1.getAuthorizedByCounterparty().equals(tl2.getAuthorizedByCounterparty()) : tl2.getAuthorizedByCounterparty() != null)
+            return false;
+        if (tl1.getCounterparty() != null ? !tl1.getCounterparty().equals(tl2.getCounterparty()) : tl2.getCounterparty() != null)
+            return false;
+//        if (counterpartyAllowsRippling != null ? !counterpartyAllowsRippling.equals(trustline.counterpartyAllowsRippling) : trustline.counterpartyAllowsRippling != null)
+//            return false;
+        if (tl1.getCurrency() != null ? !tl1.getCurrency().equals(tl2.getCurrency()) : tl2.getCurrency() != null) return false;
+        if (tl1.getHash() != null ? !tl1.getHash().equals(tl2.getHash()) : tl2.getHash() != null) return false;
+        if (tl1.getLedger() != null ? !tl1.getLedger().equals(tl2.getLedger()) : tl2.getLedger() != null) return false;
+        if (tl1.getLimit() != null ? !tl1.getLimit().equals(tl2.getLimit()) : tl2.getLimit() != null) return false;
+        if (tl1.getPrevious() != null ? !equalTrustlines(tl1.getPrevious(), tl2.getPrevious()) : tl2.getPrevious() != null) return false;
+        if (tl1.getReciprocatedLimit() != null ? !tl1.getReciprocatedLimit().equals(tl2.getReciprocatedLimit()) : tl2.getReciprocatedLimit() != null)
+            return false;
+
+        return true;
+    }
+
     @BeforeClass
     private void createClient() {
         ripple = RestProxyFactory.createProxy(Ripple.class, "http://localhost:5990/");
@@ -92,7 +118,6 @@ public class RippleTest {
         Assert.assertEquals(settings.getRequireDestinationTag(), set);
     }
 
-    // todo! make this work
     @Test
     public void testPayment() throws Exception {
         final String uuid = createUUID();
@@ -131,7 +156,6 @@ public class RippleTest {
         }
     }
 
-    // todo! make this work
     @Test
     public void testTrustlines() throws Exception {
         TrustlinesResponse trustlinesResponse = ripple.getTrustlines(ADDRESS1, null, null);
@@ -206,31 +230,5 @@ public class RippleTest {
         }
         Assert.assertTrue(success, "Request failed: " + response.getError() + ": " + response.getMessage());
         Assert.assertNotNull(response.getValue());
-    }
-
-    private static boolean equalTrustlines(Trustline tl1, Trustline tl2) {
-        if (tl1 == tl2) return true;
-        if (tl2 == null) return false;
-
-        if (tl1.getAccount() != null ? !tl1.getAccount().equals(tl2.getAccount()) : tl2.getAccount() != null) return false;
-        if (tl1.getAccountAllowsRippling() != null ? !tl1.getAccountAllowsRippling().equals(tl2.getAccountAllowsRippling()) : tl2.getAccountAllowsRippling() != null)
-            return false;
-        if (tl1.getAuthorizedByAccount() != null ? !tl1.getAuthorizedByAccount().equals(tl2.getAuthorizedByAccount()) : tl2.getAuthorizedByAccount() != null)
-            return false;
-        if (tl1.getAuthorizedByCounterparty() != null ? !tl1.getAuthorizedByCounterparty().equals(tl2.getAuthorizedByCounterparty()) : tl2.getAuthorizedByCounterparty() != null)
-            return false;
-        if (tl1.getCounterparty() != null ? !tl1.getCounterparty().equals(tl2.getCounterparty()) : tl2.getCounterparty() != null)
-            return false;
-//        if (counterpartyAllowsRippling != null ? !counterpartyAllowsRippling.equals(trustline.counterpartyAllowsRippling) : trustline.counterpartyAllowsRippling != null)
-//            return false;
-        if (tl1.getCurrency() != null ? !tl1.getCurrency().equals(tl2.getCurrency()) : tl2.getCurrency() != null) return false;
-        if (tl1.getHash() != null ? !tl1.getHash().equals(tl2.getHash()) : tl2.getHash() != null) return false;
-        if (tl1.getLedger() != null ? !tl1.getLedger().equals(tl2.getLedger()) : tl2.getLedger() != null) return false;
-        if (tl1.getLimit() != null ? !tl1.getLimit().equals(tl2.getLimit()) : tl2.getLimit() != null) return false;
-        if (tl1.getPrevious() != null ? !equalTrustlines(tl1.getPrevious(), tl2.getPrevious()) : tl2.getPrevious() != null) return false;
-        if (tl1.getReciprocatedLimit() != null ? !tl1.getReciprocatedLimit().equals(tl2.getReciprocatedLimit()) : tl2.getReciprocatedLimit() != null)
-            return false;
-
-        return true;
     }
 }
