@@ -3,6 +3,7 @@ package com.github.mmazi.ripplerest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
 // todo: Try to figure out the actual types of the properties with no javadocs (currently Strings).
@@ -41,7 +42,7 @@ public class AccountSettings {
      * The MD5 128-bit hash of the account owner's email address
      */
     @JsonProperty("email_hash")
-//    @Pattern(regexp = "^$|^[A-Fa-f0-9]{32}$")
+    @Pattern(regexp = "^$|^[A-Fa-f0-9]{32}$")
     private String emailHash = null;
 
     @JsonProperty("wallet_locator")
@@ -172,7 +173,7 @@ public class AccountSettings {
      *//*
 
     @JsonProperty("account")
-//    @Pattern(regexp = "^r[1-9A-HJ-NP-Za-km-z]{25,33}$")
+    @Pattern(regexp = "^r[1-9A-HJ-NP-Za-km-z]{25,33}$")
     private String account;
 
     */
@@ -181,7 +182,7 @@ public class AccountSettings {
      *//*
 
     @JsonProperty("regular_key")
-//    @Pattern(regexp = "^r[1-9A-HJ-NP-Za-km-z]{25,33}$")
+    @Pattern(regexp = "^r[1-9A-HJ-NP-Za-km-z]{25,33}$")
     private String regularKey;
 
     */
@@ -190,7 +191,7 @@ public class AccountSettings {
      *//*
 
     @JsonProperty("owner_url")
-//    @Pattern(regexp = "^(ftp:\/\/|http:\/\/|https:\/\/)?([A-Za-z0-9_]+:{0,1}[A-Za-z0-9_]*@)?(^([ \t\r\n\f])+)(:[0-9]+)?(\/|\/([[A-Za-z0-9_]#!:.?+=&%@!-\/]))?$");
+    @Pattern(regexp = "^(ftp:\/\/|http:\/\/|https:\/\/)?([A-Za-z0-9_]+:{0,1}[A-Za-z0-9_]*@)?(^([ \t\r\n\f])+)(:[0-9]+)?(\/|\/([[A-Za-z0-9_]#!:.?+=&%@!-\/]))?$");
     private String ownerUrl;
 
     */
@@ -198,7 +199,7 @@ public class AccountSettings {
      * An optional public key, represented as hex, that can be set to allow others to send encrypted messages to the account owner
      *//*
 
-//    @Pattern(regexp = "^([0-9a-fA-F]{2}){0,33}$")
+    @Pattern(regexp = "^([0-9a-fA-F]{2}){0,33}$")
     @JsonProperty("message_public_key")
     private String messagePublicKey;
 
@@ -239,7 +240,7 @@ public class AccountSettings {
      * The string representation of the index number of the ledger containing these account settings or, in the case of historical queries, of the transaction that modified these settings
      *//*
 
-//    @Pattern(regexp = "^[0-9]+$")
+    @Pattern(regexp = "^[0-9]+$")
     @JsonProperty("ledger")
     private Long ledger;
 
@@ -249,7 +250,7 @@ public class AccountSettings {
      *//*
 
     @JsonProperty("hash")
-    //    @Pattern(regexp = "^$|^[A-Fa-f0-9]{64}$")
+    @Pattern(regexp = "^$|^[A-Fa-f0-9]{64}$")
     private String hash;
 
     */
