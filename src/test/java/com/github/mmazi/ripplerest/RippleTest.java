@@ -202,6 +202,22 @@ public class RippleTest {
     }
 
     @Test
+    public void testFindPaths() throws Exception {
+        final Currencies sourceCurrencies = Currencies.of(CurrencyAndIssuer.XRP, CurrencyAndIssuer.instance("USD"));
+        final Amount amount = new Amount(BigDecimal.ONE, "USD");
+        final PathsResponse paths = ripple.findPaths(ADDRESS2, ADDRESS1, amount, sourceCurrencies);
+        assertResponse(paths);
+        final List<Payment> payments = paths.getPayments();
+        Assert.assertFalse(payments.isEmpty());
+        for (Payment payment : payments) {
+            Assert.assertEquals(payment.getSourceAmount(), amount);
+            Assert.assertEquals(payment.getSourceAccount(), ADDRESS2);
+            Assert.assertEquals(payment.getDestinationAmount(), amount);
+            Assert.assertEquals(payment.getDestinationAccount(), ADDRESS1);
+        }
+    }
+
+    @Test
     public void testGetServerInfo() throws Exception {
         final ServerInfoResponse serverInfoResponse = ripple.getServerInfo();
         assertResponse(serverInfoResponse);
@@ -229,6 +245,8 @@ public class RippleTest {
             log.error("Request failed; error: {}; message: {}", response.getError(), response.getMessage());
         }
         Assert.assertTrue(success, "Request failed: " + response.getError() + ": " + response.getMessage());
+        Assert.assertNull(response.getError());
+        Assert.assertNull(response.getMessage());
         Assert.assertNotNull(response.getValue());
     }
 }

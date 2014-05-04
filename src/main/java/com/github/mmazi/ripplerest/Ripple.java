@@ -26,7 +26,14 @@ interface Ripple {
     @Path("payments")
     CreatePaymentResponse createPayment(PaymentRequest paymentRequest) throws RippleException, IOException;
 
-    // todo: payment paths
+    @GET
+    @Path("accounts/{address}/payments/paths/{destinationAccount}/{destinationAmount}?{sourceCurrencies}")
+    PathsResponse findPaths(
+            @PathParam("address") String address,
+            @PathParam("destinationAccount") String destinationAccount,
+            @PathParam("destinationAmount") Amount destinationAmount,
+            @PathParam("sourceCurrencies") Currencies sourceCurrencies
+    ) throws RippleException, IOException;
 
     @GET
     @Path("accounts/{address}/payments/{hash}")
@@ -78,6 +85,8 @@ interface Ripple {
     NotificationResponse getNotifictaion(
             @PathParam("address") String address, @PathParam("hash")String hash
     ) throws RippleException, IOException;
+
+    // todo: standard Ripple transactions
     
     @GET
     @Path("server/connected")
