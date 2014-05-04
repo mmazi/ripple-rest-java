@@ -86,8 +86,10 @@ interface Ripple {
             @PathParam("address") String address, @PathParam("hash")String hash
     ) throws RippleException, IOException;
 
-    // todo: standard Ripple transactions
-    
+    @GET
+    @Path("transactions/{hash}")
+    TransactionResponse getTransactionDetails(@PathParam("hash") String hash) throws RippleException, IOException;
+
     @GET
     @Path("server/connected")
     ConnectedResponse isServerConnected() throws RippleException, IOException;

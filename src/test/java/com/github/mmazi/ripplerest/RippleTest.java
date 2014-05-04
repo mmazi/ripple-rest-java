@@ -9,10 +9,7 @@ import si.mazi.rescu.RestProxyFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class RippleTest {
@@ -215,6 +212,36 @@ public class RippleTest {
             Assert.assertEquals(payment.getDestinationAmount(), amount);
             Assert.assertEquals(payment.getDestinationAccount(), ADDRESS1);
         }
+    }
+
+    @Test
+    public void testGetTransactionDetails() throws Exception {
+        final String hash = "C61B3B8849EE84B17B767F0BC5F2BC5CD8D40161C931EAF921CB7201C0417CBC";
+        final TransactionResponse transactionDetails = ripple.getTransactionDetails(hash);
+        assertResponse(transactionDetails);
+        final Transaction tx = transactionDetails.getTransaction();
+        Assert.assertNotNull(tx);
+        Assert.assertNotNull(tx.getAccount());
+        Assert.assertNotNull(tx.getAmount());
+        Assert.assertNotNull(tx.getDestination());
+        Assert.assertNotNull(tx.getFee());
+        Assert.assertNotNull(tx.getFlags());
+        Assert.assertNotNull(tx.getLastLedgerSequence());
+        Assert.assertNotNull(tx.getLedgerIndex());
+        Assert.assertNotNull(tx.getSigningPubKey());
+        Assert.assertNotNull(tx.getTransactionType());
+        Assert.assertNotNull(tx.getTxnSignature());
+        Assert.assertNotNull(tx.getHash());
+        Assert.assertNotNull(tx.getInLedger());
+        Assert.assertNotNull(tx.getLedgerIndex());
+        Assert.assertNotNull(tx.getMeta());
+        Assert.assertNotNull(tx.getValidated());
+        Assert.assertNotNull(tx.getDate());
+        Assert.assertTrue(tx.getDate().before(new Date()));
+        final Calendar cal = Calendar.getInstance();
+        cal.setTime(tx.getDate());
+        Assert.assertTrue(cal.get(Calendar.YEAR) >= 2013);
+        Assert.assertTrue(cal.get(Calendar.YEAR) <= 2014);
     }
 
     @Test
