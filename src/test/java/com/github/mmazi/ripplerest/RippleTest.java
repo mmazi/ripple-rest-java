@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import si.mazi.rescu.RestProxyFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -56,7 +55,7 @@ public class RippleTest {
 
     @BeforeClass
     private void createClient() {
-        ripple = RestProxyFactory.createProxy(Ripple.class, "http://localhost:5990/");
+        ripple = RippleClientFactory.createClient("http://localhost:5990/");
     }
 
     @Test
