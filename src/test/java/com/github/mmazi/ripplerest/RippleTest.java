@@ -253,6 +253,7 @@ public class RippleTest {
         Assert.assertNull(response.getError());
         Assert.assertNull(response.getMessage());
         Assert.assertNotNull(response.getValue());
+        Assert.assertTrue(response.getAdditionalProperties().isEmpty());
     }
 
     private static boolean equalTrustlines(Trustline tl1, Trustline tl2) {
