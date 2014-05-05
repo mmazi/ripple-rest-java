@@ -49,7 +49,6 @@ public class RippleTest {
         if (tl1.getPrevious() != null ? !equalTrustlines(tl1.getPrevious(), tl2.getPrevious()) : tl2.getPrevious() != null) return false;
         if (tl1.getReciprocatedLimit() != null ? !tl1.getReciprocatedLimit().equals(tl2.getReciprocatedLimit()) : tl2.getReciprocatedLimit() != null)
             return false;
-
         return true;
     }
 
@@ -149,6 +148,7 @@ public class RippleTest {
             final Payment pmt = paymentWithId.getPayment();
             Assert.assertTrue(Arrays.asList(pmt.getSourceAccount(), pmt.getDestinationAccount()).contains(ADDRESS1));
             Assert.assertTrue(pmt.getSourceAmount().getValue().floatValue() > 0);
+            assertSensiblePastTimestamp(pmt.getTimestamp());
         }
     }
 
@@ -192,8 +192,7 @@ public class RippleTest {
         final Notification notification = notificationResponse.getNotification();
         Assert.assertEquals(notification.getHash(), hash);
         Assert.assertEquals(notification.getAccount(), ADDRESS2);
-        Assert.assertTrue(notification.getTimestamp().getTime() < System.currentTimeMillis());
-        Assert.assertTrue(notification.getTimestamp().getTime() > 1399046367);
+        assertSensiblePastTimestamp(notification.getTimestamp());
         Assert.assertTrue(notification.getTransactionUrl().contains(hash));
     }
 
@@ -258,6 +257,11 @@ public class RippleTest {
         final ConnectedResponse serverConnected = ripple.isServerConnected();
         assertResponse(serverConnected);
         Assert.assertTrue(serverConnected.isConnected());
+    }
+
+    private void assertSensiblePastTimestamp(Date date) {
+        Assert.assertTrue(date.getTime() < System.currentTimeMillis());
+        Assert.assertTrue(date.getTime() > 1399046367);
     }
 
     private String createUUID() {
