@@ -7,17 +7,17 @@ A Java implementation for the Ripple REST API (https://github.com/ripple/ripple-
 
 ### Prerequisites
 
-0. Install Java 7, git and Maven if they're not yet installed.
+Install Java 7, git and Maven if they're not yet installed.
 
-0. Clone the ripple-rest-java code:
+Clone the ripple-rest-java code:
 
     git clone git@github.com:mmazi/ripple-rest-java.git
 
-0. Install the code in your local maven repo:
+Install the code in your local maven repo:
 
     mvn install -DskipTests=true install
 
-0. Use it in your Maven project:
+Use it in your Maven project:
 
     <dependency>
         <groupId>com.github.mmazi.ripple-rest</groupId>
