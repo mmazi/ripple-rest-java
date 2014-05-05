@@ -11,8 +11,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-// todo: Try to figure out the actual types of the properties with no javadocs (currently Strings).
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountSettings implements Serializable, HasAdditionalProperties {
 
