@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class RippleResponse<V> implements Serializable {
+public abstract class RippleResponse<V> implements Serializable, HasAdditionalProperties {
     private Boolean success;
 
     private String error;
@@ -38,11 +38,13 @@ public abstract class RippleResponse<V> implements Serializable {
         return message;
     }
 
+    @Override
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
+    @Override
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);

@@ -1,15 +1,19 @@
 
 package com.github.mmazi.ripplerest;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Notification implements Serializable {
+public class Notification implements Serializable, HasAdditionalProperties {
 
     /**
      * A Ripple account address
@@ -84,6 +88,14 @@ public class Notification implements Serializable {
     @JsonProperty("next_notification_url")
     private String nextNotificationUrl;
 
+    @JsonProperty("previous_hash")
+    private String previousHash;
+
+    @JsonProperty("next_hash")
+    private String nextHash;
+
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public String getAccount() {
@@ -130,6 +142,23 @@ public class Notification implements Serializable {
         return nextNotificationUrl;
     }
 
+    public String getNextHash() {
+        return nextHash;
+    }
+
+    public String getPreviousHash() {
+        return previousHash;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Transaction implements Serializable {
+public class Transaction implements Serializable, HasAdditionalProperties {
 
     /**
      * The signature for the transaction.

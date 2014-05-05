@@ -252,8 +252,14 @@ public class RippleTest {
         Assert.assertTrue(success, "Request failed: " + response.getError() + ": " + response.getMessage());
         Assert.assertNull(response.getError());
         Assert.assertNull(response.getMessage());
-        Assert.assertNotNull(response.getValue());
         Assert.assertTrue(response.getAdditionalProperties().isEmpty());
+
+        final Object value = response.getValue();
+        Assert.assertNotNull(value);
+        if (value instanceof HasAdditionalProperties) {
+            final Map<String, Object> additionalProperties = ((HasAdditionalProperties) value).getAdditionalProperties();
+            Assert.assertTrue(additionalProperties.isEmpty(), "Any additional json properties should probably be mapped to bean properties: " + additionalProperties.toString());
+        }
     }
 
     private static boolean equalTrustlines(Trustline tl1, Trustline tl2) {

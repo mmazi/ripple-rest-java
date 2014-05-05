@@ -1,6 +1,8 @@
 
 package com.github.mmazi.ripplerest;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +11,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -16,7 +20,7 @@ import java.math.BigDecimal;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
-public class Trustline implements Serializable {
+public class Trustline implements Serializable, HasAdditionalProperties {
 
     /**
      * A Ripple account address
@@ -90,6 +94,7 @@ public class Trustline implements Serializable {
     @Valid
     private Trustline previous;
 
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     ///////////////////////////////////////////////
 
@@ -154,4 +159,15 @@ public class Trustline implements Serializable {
     public Trustline getPrevious() {
         return previous;
     }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }

@@ -1,16 +1,17 @@
 
 package com.github.mmazi.ripplerest;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
-public class Payment {
+public class Payment implements Serializable, HasAdditionalProperties {
 
     /**
      * RippleAddress
@@ -161,6 +162,10 @@ public class Payment {
     @Valid
     private List<Amount> destinationBalanceChanges = new ArrayList<Amount>();
 
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     protected Payment() {
     }
 
@@ -263,6 +268,18 @@ public class Payment {
     public List<Amount> getDestinationBalanceChanges() {
         return destinationBalanceChanges;
     }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static enum Direction {
         incoming, outgoing, passthrough;

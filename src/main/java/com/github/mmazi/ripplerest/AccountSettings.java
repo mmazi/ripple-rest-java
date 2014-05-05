@@ -1,15 +1,20 @@
 package com.github.mmazi.ripplerest;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 // todo: Try to figure out the actual types of the properties with no javadocs (currently Strings).
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AccountSettings {
+public class AccountSettings implements Serializable, HasAdditionalProperties {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // flags
@@ -28,6 +33,8 @@ public class AccountSettings {
 
     @JsonProperty("require_destination_tag")
     private Boolean requireDestinationTag = null;
+
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // other fields
@@ -62,6 +69,9 @@ public class AccountSettings {
 
     @JsonProperty("signers")
     private String signers = null;
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     public Boolean getDisableMaster() {
         return disableMaster;
@@ -158,6 +168,17 @@ public class AccountSettings {
     public void setSigners(String signers) {
         this.signers = signers;
     }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
