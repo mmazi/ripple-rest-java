@@ -61,7 +61,7 @@ See also `src/test/java/com/github/mmazi/ripplerest/RippleTest.java` for more ex
 
 ## Tests
 
-The tests are in `src/test/java/com/github/mmazi/ripplerest/RippleTest.java`.
+The tests are in `src/test/java/com/github/mmazi/ripplerest/RippleTest.java`. All test are executed against the `ripple-rest` server that must be running on `localhost:5990`.
 
 ### Running the tests
 
