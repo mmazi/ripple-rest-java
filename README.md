@@ -68,3 +68,6 @@ The tests are in `src/test/java/com/github/mmazi/ripplerest/RippleTest.java`. Al
 0. Make sure the [ripple-rest](https://github.com/ripple/ripple-rest) server is running on `localhost:5990` (the default port).
 0. Run `mvn clean test`.
 
+## Notes
+
+* The JSR-303 (Bean Validation) annotations are included on the model classes, but the constraints are currently not enforced.
