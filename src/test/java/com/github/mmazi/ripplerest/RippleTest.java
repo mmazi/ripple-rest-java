@@ -118,7 +118,7 @@ public class RippleTest {
 
     @Test
     public void testGetPayments() throws Exception {
-        final PaymentsResponse paymentsResponse = ripple.getPayments(ADDRESS1, null, false, null, null, true, 10, 1);
+        final PaymentsResponse paymentsResponse = ripple.getPayments(ADDRESS1, ADDRESS1, ADDRESS2, false, null, null, true, 10, 1);
         assertResponse(paymentsResponse);
         final List<PaymentWithId> payments = paymentsResponse.getPayments();
         log.info("Got {} payments.", payments.size());

@@ -44,7 +44,7 @@ interface Ripple {
 
 
     /**
-     * source_account - If specified, limit the results to payments initiated by a particular account
+     * @param sourceAccount      If specified, limit the results to payments initiated by a particular account
      * @param destinationAccount If specified, limit the results to payments made to a particular account
      * @param excludeFailed      if set to true, this will return only payment that were successfully validated and written into the Ripple Ledger
      * @param startLedger        If earliest_first is set to true this will be the index number of the earliest ledger queried, or the most recent one if earliest_first is set to false. Defaults to the first ledger the rippled has in its complete ledger. An error will be returned if this value is outside the rippled's complete ledger set
@@ -57,6 +57,7 @@ interface Ripple {
     @Path("accounts/{address}/payments")
     PaymentsResponse getPayments(
             @PathParam("address") String address,
+            @QueryParam("source_account") String sourceAccount,
             @QueryParam("destination_account") String destinationAccount,
             @QueryParam("exclude_failed") Boolean excludeFailed,
             @QueryParam("start_ledger") Integer startLedger,
