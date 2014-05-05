@@ -91,7 +91,6 @@ public class RippleTest {
     @Test
     public void testPayment() throws Exception {
         final String uuid = createUUID();
-//        final String uuid = "f2f811b7-dc3b-4078-a2c2-e4ca9e453981";
 //        final String uuid = ripple.generateUuid().getUuid();
         final BigDecimal value = BigDecimal.valueOf(RANDOM.nextInt(8) + 1);
         final Amount amount = new Amount(value, "XRP");
@@ -109,7 +108,11 @@ public class RippleTest {
         paymentResponse = ripple.getPayment(ADDRESS1, pmtHash);
         assertResponse(paymentResponse);
         pmt = paymentResponse.getPayment();
-        Assert.assertEquals(pmt.getSourceAmount().getValue(), value);
+        Assert.assertEquals(pmt.getSourceAmount(), amount);
+        Assert.assertEquals(pmt.getSourceAccount(), ADDRESS1);
+        Assert.assertEquals(pmt.getDestinationAmount(), amount);
+        Assert.assertEquals(pmt.getDestinationAccount(), ADDRESS2);
+        Assert.assertTrue(pmt.getFee().doubleValue() > 0);
 //        Assert.assertEquals(paymentResponse.getClientResourceId(), uuid); // actual: null
     }
 
