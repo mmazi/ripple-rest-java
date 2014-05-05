@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -41,6 +43,7 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
      * A string representation of the last sequence number of a validated transaction created by this account
      */
     @JsonProperty("transaction_sequence")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long transactionSequence = null;
 
     /**
@@ -252,6 +255,7 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
      *//*
 
     @JsonProperty("trustlines_owned")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long trustlinesOwned;
 
     */
@@ -261,6 +265,7 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
 
     @Pattern(regexp = "^[0-9]+$")
     @JsonProperty("ledger")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long ledger;
 
     */

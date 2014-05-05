@@ -94,8 +94,9 @@ public class RippleTest {
 //        final String uuid = "f2f811b7-dc3b-4078-a2c2-e4ca9e453981";
 //        final String uuid = ripple.generateUuid().getUuid();
         final BigDecimal value = BigDecimal.valueOf(RANDOM.nextInt(8) + 1);
+        final Amount amount = new Amount(value, "XRP");
         final CreatePaymentResponse createPaymentResponse = ripple.createPayment(new PaymentRequest(ADDRESS1_SECRET, uuid, new Payment(
-                ADDRESS1, ADDRESS2, new Amount(value, "XRP")
+                ADDRESS1, ADDRESS2, amount, amount, BigDecimal.valueOf(0.02), 2L, 3L, null, false, false, null
         )));
         assertResponse(createPaymentResponse);
         Assert.assertNotNull(createPaymentResponse.getStatusUrl());

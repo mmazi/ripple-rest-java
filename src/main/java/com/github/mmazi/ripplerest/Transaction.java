@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
@@ -26,6 +28,7 @@ public class Transaction implements Serializable, HasAdditionalProperties {
     String txnSignature;
 
     @JsonProperty("Amount")
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal amount;
 
     @JsonProperty("Destination")
@@ -37,6 +40,7 @@ public class Transaction implements Serializable, HasAdditionalProperties {
     private String hash;
 
     @JsonProperty("inLedger")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long inLedger;
 
     @JsonProperty("ledger_index")
@@ -64,6 +68,7 @@ public class Transaction implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("Flags")
     @Nullable
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long flags;
 
     /**
@@ -71,6 +76,7 @@ public class Transaction implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("SourceTag")
     @Nullable
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long sourceTag;
 
     /**
@@ -92,6 +98,7 @@ public class Transaction implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("Sequence")
     @NotNull
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long sequence;
 
     /**
@@ -107,6 +114,7 @@ public class Transaction implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("LastLedgerSequence")
     @Nullable
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long lastLedgerSequence;
 
     /**
@@ -114,6 +122,7 @@ public class Transaction implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("Fee")
     @NotNull
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long fee;
 
     /**

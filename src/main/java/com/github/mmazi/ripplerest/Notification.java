@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -51,6 +53,7 @@ public class Notification implements Serializable, HasAdditionalProperties {
      * The index number of the ledger containing the validated or failed transaction. Failed payments will only be written into the Ripple Ledger if they fail after submission to a rippled and a Ripple Network fee is claimed
      */
     @JsonProperty("ledger")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long ledger;
 
     /**

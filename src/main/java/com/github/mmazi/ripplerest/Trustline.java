@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
@@ -46,9 +48,11 @@ public class Trustline implements Serializable, HasAdditionalProperties {
     private String currency;
 
     @JsonProperty("limit")
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal limit;
 
     @JsonProperty("reciprocated_limit")
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal reciprocatedLimit;
 
     /**
@@ -79,6 +83,7 @@ public class Trustline implements Serializable, HasAdditionalProperties {
      * The string representation of the index number of the ledger containing this trustline or, in the case of historical queries, of the transaction that modified this Trustline
      */
     @JsonProperty("ledger")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long ledger;
 
     /**

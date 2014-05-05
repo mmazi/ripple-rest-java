@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
@@ -33,7 +35,7 @@ public class Payment implements Serializable, HasAdditionalProperties {
     private String sourceAccount;
 
     @JsonProperty("source_tag")
-    @Pattern(regexp = "^$|^(429496729[0-5]|42949672[0-8][0-9]|4294967[01][0-9]{2}|429496[0-6][0-9]{3}|42949[0-5][0-9]{4}|4294[0-8][0-9]{5}|429[0-3][0-9]{6}|42[0-8][0-9]{7}|4[01][0-9]{8}|[1-3][0-9]{9}|[1-9][0-9]{8}|[1-9][0-9]{7}|[1-9][0-9]{6}|[1-9][0-9]{5}|[1-9][0-9]{4}|[1-9][0-9]{3}|[1-9][0-9]{2}|[1-9][0-9]|[0-9])$")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long sourceTag;
 
     /**
@@ -46,6 +48,7 @@ public class Payment implements Serializable, HasAdditionalProperties {
     private Amount sourceAmount;
 
     @JsonProperty("source_slippage")
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal sourceSlippage;
 
     /**
@@ -64,6 +67,7 @@ public class Payment implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("destination_tag")
 //    @Pattern(regexp = "^$|^(429496729[0-5]|42949672[0-8][0-9]|4294967[01][0-9]{2}|429496[0-6][0-9]{3}|42949[0-5][0-9]{4}|4294[0-8][0-9]{5}|429[0-3][0-9]{6}|42[0-8][0-9]{7}|4[01][0-9]{8}|[1-3][0-9]{9}|[1-9][0-9]{8}|[1-9][0-9]{7}|[1-9][0-9]{6}|[1-9][0-9]{5}|[1-9][0-9]{4}|[1-9][0-9]{3}|[1-9][0-9]{2}|[1-9][0-9]|[0-9])$")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long destinationTag;
 
     /**
@@ -125,6 +129,7 @@ public class Payment implements Serializable, HasAdditionalProperties {
      * The index number of the ledger containing the validated or failed payment. Failed payments will only be written into the Ripple Ledger if they fail after submission to a rippled and a Ripple Network fee is claimed
      */
     @JsonProperty("ledger")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long ledger;
 
     /**
@@ -146,6 +151,7 @@ public class Payment implements Serializable, HasAdditionalProperties {
     private Date timestamp;
 
     @JsonProperty("fee")
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal fee;
 
     /**
@@ -170,12 +176,10 @@ public class Payment implements Serializable, HasAdditionalProperties {
     }
 
     public Payment(String sourceAccount, String destinationAccount, Amount destinationAmount) {
-        this.destinationAmount = destinationAmount;
-        this.destinationAccount = destinationAccount;
-        this.sourceAccount = sourceAccount;
+        this(sourceAccount, destinationAccount, destinationAmount, null, null, null, null, null, null, null, null);
     }
 
-    public Payment(String sourceAccount, Long sourceTag, Amount sourceAmount, BigDecimal sourceSlippage, String destinationAccount, Long destinationTag, Amount destinationAmount, String invoiceId, String paths, Boolean partialPayment, Boolean noDirectRipple) {
+    public Payment(String sourceAccount, String destinationAccount, Amount destinationAmount, Amount sourceAmount, BigDecimal sourceSlippage, Long sourceTag, Long destinationTag, String invoiceId, Boolean partialPayment, Boolean noDirectRipple, String paths) {
         this.sourceAccount = sourceAccount;
         this.sourceTag = sourceTag;
         this.sourceAmount = sourceAmount;
