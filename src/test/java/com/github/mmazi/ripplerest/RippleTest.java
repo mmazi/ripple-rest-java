@@ -33,6 +33,16 @@ public class RippleTest {
     }
 
     @Test
+    public void testError() throws Exception {
+        final BalancesResponse response = ripple.getBalances("illegalAddress");
+        Assert.assertFalse(response.getSuccess());
+//        Assert.assertNotNull(response.getError()); // is actually null
+        Assert.assertNotNull(response.getMessage());
+        Assert.assertNull(response.getBalances());
+        Assert.assertTrue(response.getAdditionalProperties().isEmpty());
+    }
+
+    @Test
     public void testGenerateUuid() throws Exception {
         final UuidResponse uuidResponse = ripple.generateUuid();
         assertResponse(uuidResponse);
