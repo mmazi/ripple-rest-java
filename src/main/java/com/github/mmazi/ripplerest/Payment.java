@@ -1,4 +1,3 @@
-
 package com.github.mmazi.ripplerest;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -282,6 +281,36 @@ public class Payment implements Serializable, HasAdditionalProperties {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public String toString() {
+        return "Payment[" +
+                "sourceAccount='" + sourceAccount + '\'' +
+                ", sourceTag=" + sourceTag +
+                ", sourceAmount=" + sourceAmount +
+                ", sourceSlippage=" + sourceSlippage +
+                ", destinationAccount='" + destinationAccount + '\'' +
+                ", destinationTag=" + destinationTag +
+                ", destinationAmount=" + destinationAmount +
+                ", invoiceId='" + invoiceId + '\'' +
+                ", paths='" + paths + '\'' +
+                ", partialPayment=" + partialPayment +
+                ", noDirectRipple=" + noDirectRipple +
+                ", direction=" + direction +
+                ", state=" + state +
+                ", result='" + result + '\'' +
+                ", ledger=" + ledger +
+                ", hash='" + hash + '\'' +
+                ", timestamp=" + timestamp +
+                ", fee=" + fee +
+                ", sourceBalanceChanges=" + sourceBalanceChanges +
+                ", destinationBalanceChanges=" + destinationBalanceChanges +
+                ", additionalProperties=" + additionalProperties +
+                ']';
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

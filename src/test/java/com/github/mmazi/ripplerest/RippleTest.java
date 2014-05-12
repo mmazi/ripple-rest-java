@@ -47,6 +47,7 @@ public class RippleTest {
         final UuidResponse uuidResponse = ripple.generateUuid();
         assertResponse(uuidResponse);
         final String uuid = uuidResponse.getUuid();
+        log.info("Generated UUID: {}", uuid);
         Assert.assertTrue(UUID_PATTERN.matcher(uuid).matches());
     }
 
@@ -57,7 +58,9 @@ public class RippleTest {
         final List<Amount> balances = balancesResponse.getBalances();
         Assert.assertFalse(balances.isEmpty());
         boolean xrpFound = false;
+        log.info("Balances:");
         for (Amount balance : balances) {
+            log.debug("{}", balance);
             if (balance.getCurrency().equals("XRP")) {
                 xrpFound = true;
                 Assert.assertTrue(balance.getValue().intValue() > 0);
@@ -135,6 +138,7 @@ public class RippleTest {
         Assert.assertFalse(payments.isEmpty());
         for (PaymentWithId paymentWithId : payments) {
             final Payment pmt = paymentWithId.getPayment();
+            log.debug("payment: {}", pmt);
             Assert.assertTrue(Arrays.asList(pmt.getSourceAccount(), pmt.getDestinationAccount()).contains(ADDRESS1));
             Assert.assertTrue(pmt.getSourceAmount().getValue().floatValue() > 0);
             assertSensiblePastTimestamp(pmt.getTimestamp());
@@ -166,6 +170,7 @@ public class RippleTest {
 
         boolean addedFound = false;
         for (Trustline finalTrustline : finalTrustlines) {
+            log.debug("trustline: {}", finalTrustline);
             if (equalTrustlines(finalTrustline, addedTrustline)) {
                 addedFound = true;
             }
@@ -193,7 +198,9 @@ public class RippleTest {
         assertResponse(paths);
         final List<Payment> payments = paths.getPayments();
         Assert.assertFalse(payments.isEmpty());
+        log.info("Path payments:");
         for (Payment payment : payments) {
+            log.debug("{}", payment);
             Assert.assertEquals(payment.getSourceAmount(), amount);
             Assert.assertEquals(payment.getSourceAccount(), ADDRESS2);
             Assert.assertEquals(payment.getDestinationAmount(), amount);
@@ -269,6 +276,7 @@ public class RippleTest {
         Assert.assertTrue(response.getAdditionalProperties().isEmpty());
 
         final Object value = response.getValue();
+        log.debug("Parsed response payload: {}", value);
         Assert.assertNotNull(value);
         if (value instanceof HasAdditionalProperties) {
             final Map<String, Object> additionalProperties = ((HasAdditionalProperties) value).getAdditionalProperties();

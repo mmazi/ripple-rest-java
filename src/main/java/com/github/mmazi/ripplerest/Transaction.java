@@ -230,4 +230,33 @@ public class Transaction implements Serializable, HasAdditionalProperties {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+
+    @Override
+    public String toString() {
+        return "Transaction[" +
+                "txnSignature='" + txnSignature + '\'' +
+                ", amount=" + amount +
+                ", destination='" + destination + '\'' +
+                ", hash='" + hash + '\'' +
+                ", inLedger=" + inLedger +
+                ", ledgerIndex=" + ledgerIndex +
+                ", validated=" + validated +
+                ", date=" + date +
+                ", meta=" + meta +
+                ", transactionType='" + transactionType + '\'' +
+                ", flags=" + flags +
+                ", sourceTag=" + sourceTag +
+                ", memos=" + memos +
+                ", account='" + account + '\'' +
+                ", sequence=" + sequence +
+                ", previousTxnID='" + previousTxnID + '\'' +
+                ", lastLedgerSequence=" + lastLedgerSequence +
+                ", fee=" + fee +
+                ", signingPubKey='" + signingPubKey + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                ']';
+    }
 }

@@ -1,4 +1,3 @@
-
 package com.github.mmazi.ripplerest;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -175,4 +174,25 @@ public class Trustline implements Serializable, HasAdditionalProperties {
         this.additionalProperties.put(name, value);
     }
 
+    ///////////////////////////////////////////////
+
+
+    @Override
+    public String toString() {
+        return "Trustline[" +
+                "account='" + account + '\'' +
+                ", counterparty='" + counterparty + '\'' +
+                ", currency='" + currency + '\'' +
+                ", limit=" + limit +
+                ", reciprocatedLimit=" + reciprocatedLimit +
+                ", authorizedByAccount=" + authorizedByAccount +
+                ", authorizedByCounterparty=" + authorizedByCounterparty +
+                ", accountAllowsRippling=" + accountAllowsRippling +
+                ", counterpartyAllowsRippling=" + counterpartyAllowsRippling +
+                ", ledger=" + ledger +
+                ", hash='" + hash + '\'' +
+                ", previous=" + previous +
+                ", additionalProperties=" + additionalProperties +
+                ']';
+    }
 }

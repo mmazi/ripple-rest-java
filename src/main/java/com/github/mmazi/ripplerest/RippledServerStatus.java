@@ -102,6 +102,15 @@ public class RippledServerStatus implements Serializable, HasAdditionalPropertie
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    @Override
+    public String toString() {
+        return String.format("RippledServerStatus[buildVersion='%s', completeLedgers='%s', hostid='%s', lastClose=%s, loadFactor=%d, peers=%d, pubkeyNode='%s', serverState='%s', validatedLedger=%s, validationQuorum=%d, additionalProperties=%s]",
+                buildVersion, completeLedgers, hostid, lastClose, loadFactor, peers, pubkeyNode, serverState, validatedLedger, validationQuorum, additionalProperties);
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class LastClose implements Serializable {
 

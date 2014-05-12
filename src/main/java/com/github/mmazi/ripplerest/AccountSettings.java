@@ -71,6 +71,12 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
     @JsonProperty("signers")
     private String signers = null;
 
+    @Override
+    public String toString() {
+        return String.format("AccountSettings[disableMaster=%s, disallowXrp=%s, passwordSpent=%s, requireAuthorization=%s, requireDestinationTag=%s, additionalProperties=%s, transactionSequence=%d, emailHash='%s', walletLocator='%s', messageKey='%s', domain='%s', transferRate=%s, signers='%s']",
+                disableMaster, disallowXrp, passwordSpent, requireAuthorization, requireDestinationTag, additionalProperties, transactionSequence, emailHash, walletLocator, messageKey, domain, transferRate, signers);
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
