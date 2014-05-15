@@ -48,6 +48,9 @@ public class RippledServerStatus implements Serializable, HasAdditionalPropertie
     @JsonProperty("fetch_pack")
     private Long fetchPack;
 
+    @JsonProperty("io_latency_ms")
+    private String ioLatencyMs;
+
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,6 +97,10 @@ public class RippledServerStatus implements Serializable, HasAdditionalPropertie
 
     public Long getFetchPack() {
         return fetchPack;
+    }
+
+    public String getIoLatencyMs() {
+        return ioLatencyMs;
     }
 
     @JsonAnyGetter
