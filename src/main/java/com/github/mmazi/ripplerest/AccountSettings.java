@@ -1,9 +1,6 @@
 package com.github.mmazi.ripplerest;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
@@ -68,7 +65,7 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
     @JsonProperty("transfer_rate")
     private BigDecimal transferRate = null;
 
-    @JsonProperty("signers")
+    @JsonIgnore
     private String signers = null;
 
     @JsonProperty("wallet_size")
@@ -174,10 +171,12 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
         this.transferRate = transferRate;
     }
 
+    @JsonIgnore
     public String getSigners() {
         return signers;
     }
 
+    @JsonProperty("signers")
     public void setSigners(String signers) {
         this.signers = signers;
     }
