@@ -74,6 +74,15 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
     @JsonProperty("wallet_size")
     private String walletSize = null;
 
+    /**
+     * The Ripple address of the account in question
+     */
+
+    @JsonProperty("account")
+    @Pattern(regexp = "^r[1-9A-HJ-NP-Za-km-z]{25,33}$")
+    private String account;
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -177,6 +186,10 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
         return walletSize;
     }
 
+    public String getAccount() {
+        return account;
+    }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
@@ -205,15 +218,7 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
 /*
 
     */
-/**
-     * The Ripple address of the account in question
-     *//*
 
-    @JsonProperty("account")
-    @Pattern(regexp = "^r[1-9A-HJ-NP-Za-km-z]{25,33}$")
-    private String account;
-
-    */
 /**
      * The hash of an optional additional public key that can be used for signing and verifying transactions
      *//*
