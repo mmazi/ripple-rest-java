@@ -223,7 +223,7 @@ public class RippleTest {
 
     @Test
     public void testFindPaths() throws Exception {
-        final Currencies sourceCurrencies = Currencies.of(CurrencyAndIssuer.XRP);
+        final Currencies sourceCurrencies = Currencies.of(CurrencyAndIssuer.XRP, CurrencyAndIssuer.instance("USD"));
         final Amount amount = new Amount(BigDecimal.ONE, "USD");
         final PathsResponse paths = ripple.findPaths(ADDRESS2, ADDRESS1, amount, sourceCurrencies);
         assertResponse(paths);
