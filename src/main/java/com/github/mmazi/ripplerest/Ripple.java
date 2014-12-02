@@ -27,12 +27,12 @@ public interface Ripple {
     CreatePaymentResponse createPayment(@PathParam("address") String address, PaymentRequest paymentRequest) throws RippleException, IOException;
 
     @GET
-    @Path("accounts/{address}/payments/paths/{destinationAccount}/{destinationAmount}?{sourceCurrencies}")
+    @Path("accounts/{address}/payments/paths/{destinationAccount}/{destinationAmount}")
     PathsResponse findPaths(
             @PathParam("address") String address,
             @PathParam("destinationAccount") String destinationAccount,
             @PathParam("destinationAmount") Amount destinationAmount,
-            @PathParam("sourceCurrencies") Currencies sourceCurrencies
+            @QueryParam("source_currencies") Currencies sourceCurrencies
     ) throws RippleException, IOException;
 
     @GET
