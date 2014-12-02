@@ -8,7 +8,7 @@ import java.io.IOException;
 @Path("v1")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-interface Ripple {
+public interface Ripple {
 
     @GET
     @Path("accounts/{address}/balances")
