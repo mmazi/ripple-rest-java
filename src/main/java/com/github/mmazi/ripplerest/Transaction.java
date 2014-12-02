@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.github.mmazi.ripplerest.util.RippleTimeDeserializer;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
@@ -50,6 +52,7 @@ public class Transaction implements Serializable, HasAdditionalProperties {
     private Boolean validated;
 
     @JsonProperty("date")
+    @JsonDeserialize(using = RippleTimeDeserializer.class)
     private Date date;
 
     @JsonProperty("meta")

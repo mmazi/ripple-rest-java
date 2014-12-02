@@ -98,6 +98,12 @@ public class Trustline implements Serializable, HasAdditionalProperties {
     @Valid
     private Trustline previous;
 
+    @JsonProperty("account_trustline_frozen")
+    private Boolean accountTrustlineFrozen;
+
+    @JsonProperty("state")
+    private String state;
+
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     ///////////////////////////////////////////////
@@ -162,6 +168,14 @@ public class Trustline implements Serializable, HasAdditionalProperties {
 
     public Trustline getPrevious() {
         return previous;
+    }
+
+    public Boolean getAccountTrustlineFrozen() {
+        return accountTrustlineFrozen;
+    }
+
+    public String getState() {
+        return state;
     }
 
     @JsonAnyGetter

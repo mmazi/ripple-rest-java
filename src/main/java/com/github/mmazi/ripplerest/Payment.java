@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
@@ -19,6 +21,8 @@ import java.util.*;
  * Payment
  * <p/>
  * A flattened Payment object used by the ripple-rest API
+ *
+ * // todo: update javadocs from https://dev.ripple.com/#preparing-a-payment
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -129,6 +133,7 @@ public class Payment implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("ledger")
     @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LongNullDeserializer.class)
     private Long ledger;
 
     /**

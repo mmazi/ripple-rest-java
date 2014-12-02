@@ -23,8 +23,8 @@ interface Ripple {
     SettingsResponse setSettings(@PathParam("address") String address, SetSettingsRequest settings) throws RippleException, IOException;
 
     @POST
-    @Path("payments")
-    CreatePaymentResponse createPayment(PaymentRequest paymentRequest) throws RippleException, IOException;
+    @Path("accounts/{address}/payments")
+    CreatePaymentResponse createPayment(@PathParam("address") String address, PaymentRequest paymentRequest) throws RippleException, IOException;
 
     @GET
     @Path("accounts/{address}/payments/paths/{destinationAccount}/{destinationAmount}?{sourceCurrencies}")
@@ -43,6 +43,7 @@ interface Ripple {
     ) throws RippleException, IOException;
 
 
+    //  Todo: double-check with https://dev.ripple.com/#payment-history
     /**
      * @param sourceAccount      If specified, limit the results to payments initiated by a particular account
      * @param destinationAccount If specified, limit the results to payments made to a particular account
@@ -88,6 +89,7 @@ interface Ripple {
     ) throws RippleException, IOException;
 
     @GET
+//    @Path("tx/{hash}") // see https://dev.ripple.com/#retrieve-ripple-transaction
     @Path("transactions/{hash}")
     TransactionResponse getTransactionDetails(@PathParam("hash") String hash) throws RippleException, IOException;
 

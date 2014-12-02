@@ -21,6 +21,10 @@ public class ServerInfoResponse extends RippleResponse<RippledServerStatus> {
     @JsonProperty("api_documentation_url")
     private String apiDocumentationUrl;
 
+    public ServerInfoResponse(@JsonProperty("success") Boolean success, @JsonProperty("client_resource_id") String crid) {
+        super(success, crid);
+    }
+
     public String getApiServerStatus() {
         return apiServerStatus;
     }

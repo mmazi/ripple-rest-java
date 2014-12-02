@@ -3,22 +3,28 @@ package com.github.mmazi.ripplerest;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import si.mazi.rescu.ExceptionalReturnContentException;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class RippleResponse<V> implements Serializable, HasAdditionalProperties {
+
     private Boolean success;
-
-    private String error;
-
-    private String message;
 
     @JsonProperty("client_resource_id")
     private String clientResourceId;
 
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    protected RippleResponse(Boolean success, String clientResourceId) {
+        if (Boolean.FALSE.equals(success)) {
+            throw new ExceptionalReturnContentException("Success was false.");
+        }
+        this.success = success;
+        this.clientResourceId = clientResourceId;
+    }
 
     public abstract V getValue();
 
@@ -28,14 +34,6 @@ public abstract class RippleResponse<V> implements Serializable, HasAdditionalPr
 
     public String getClientResourceId() {
         return clientResourceId;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     @Override

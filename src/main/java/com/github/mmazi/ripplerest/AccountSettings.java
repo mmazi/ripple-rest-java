@@ -31,6 +31,31 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
     @JsonProperty("require_destination_tag")
     private Boolean requireDestinationTag = null;
 
+    @JsonProperty("global_freeze")
+    private Boolean globalFreeze;
+
+    @JsonProperty("no_freeze")
+    private Boolean noFreeze;
+
+    /**
+     * The string representation of the index number of the ledger containing these account settings or, in the case of historical queries, of the transaction that modified these settings
+     */
+    @Pattern(regexp = "^[0-9]+$")
+    @JsonProperty("ledger")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long ledger;
+
+    /**
+     * If this object was returned by a historical query this value will be the hash of the transaction that modified these settings. The transaction hash is used throughout the Ripple Protocol to uniquely identify a particular transaction
+     */
+    @JsonProperty("hash")
+    @Pattern(regexp = "^$|^[A-Fa-f0-9]{64}$")
+    private String hash;
+
+    @JsonProperty("state")
+    private String state;
+
+
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,12 +206,33 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
         this.signers = signers;
     }
 
+    public Boolean getGlobalFreeze() {
+        return globalFreeze;
+    }
+
+    public void setGlobalFreeze(Boolean globalFreeze) {
+        this.globalFreeze = globalFreeze;
+    }
+
+    public Boolean getNoFreeze() {
+        return noFreeze;
+    }
+
+    public void setNoFreeze(Boolean noFreeze) {
+        this.noFreeze = noFreeze;
+    }
+
     public String getWalletSize() {
         return walletSize;
     }
 
     public String getAccount() {
         return account;
+    }
+
+    public void clearUnsettable() {
+        setNoFreeze(null);
+        setGlobalFreeze(null);
     }
 
     @JsonAnyGetter
