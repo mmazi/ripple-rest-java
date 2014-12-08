@@ -6,6 +6,10 @@ import java.util.List;
 
 public class TrustlinesResponse extends RippleResponse<List<Trustline>> {
 
+    private Long ledger;
+
+    private Boolean validated;
+
     private List<Trustline> trustlines;
 
     public TrustlinesResponse(@JsonProperty("success") Boolean success, @JsonProperty("client_resource_id") String crid) {
@@ -14,6 +18,14 @@ public class TrustlinesResponse extends RippleResponse<List<Trustline>> {
 
     public List<Trustline> getTrustlines() {
         return trustlines;
+    }
+
+    public Long getLedger() {
+        return ledger;
+    }
+
+    public Boolean getValidated() {
+        return validated;
     }
 
     @Override
