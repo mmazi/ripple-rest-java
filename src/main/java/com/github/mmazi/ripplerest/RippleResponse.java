@@ -47,4 +47,10 @@ public abstract class RippleResponse<V> implements Serializable, HasAdditionalPr
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+    @Override
+    public String toString() {
+        return String.format("RippleResponse{success=%s, clientResourceId='%s', value='%s'}",
+                success, clientResourceId, getValue());
+    }
 }

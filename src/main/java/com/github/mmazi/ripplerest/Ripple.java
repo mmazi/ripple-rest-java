@@ -88,6 +88,15 @@ public interface Ripple {
             @PathParam("address") String address, @PathParam("hash")String hash
     ) throws RippleException, IOException;
 
+    @POST
+    @Path("accounts/{address}/orders")
+    OrderResponse placeOrder(@PathParam("address") String address, PlaceOrderRequest placeOrderRequest) throws RippleException, IOException;
+
+    @DELETE
+    @Path("accounts/{address}/orders/{sequence}")
+    OrderResponse cancelOrder(@PathParam("address") String address, @PathParam("sequence") Integer sequence, CancelOrderRequest req)
+            throws RippleException, IOException;
+
     @GET
 //    @Path("tx/{hash}") // see https://dev.ripple.com/#retrieve-ripple-transaction
     @Path("transactions/{hash}")

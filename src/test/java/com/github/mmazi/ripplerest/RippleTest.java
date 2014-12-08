@@ -16,7 +16,8 @@ public class RippleTest {
     public static final String ADDRESS1 = "rDiWNyxZqEfRrdsNbPPwgBUZFb4Xf17cNJ";
     public static final String ADDRESS2 = "rhiAtoMmU2hFuzS6eWdtix29doajBLwatM";
 
-    public static final String ADDRESS2_SECRET = "sanGEaJxs4Q9buPXmYjeGYgvdtzbX";
+//    public static final String ADDRESS2_SECRET = "sanGEaJxs4Q9buPXmYjeGYgvdtzbX";
+    public static final String ADDRESS2_SECRET = "ssfSZYo2zikb7brQYHBmcE21rZfAN";
     public static final String ADDRESS1_SECRET = "ssx95aBiN5YYHWsuHrosLqyqyJsp2";
 
     public static final Random RANDOM = new Random();
@@ -232,11 +233,18 @@ public class RippleTest {
         log.info("Path payments:");
         for (Payment payment : payments) {
             log.debug("{}", payment);
-            Assert.assertEquals(payment.getSourceAmount(), amount);
+            assertEqualAmountAndCurrency(payment.getSourceAmount(), amount);
+            Assert.assertEquals(payment.getSourceAmount().getCounterparty(), ADDRESS2);
             Assert.assertEquals(payment.getSourceAccount(), ADDRESS2);
-            Assert.assertEquals(payment.getDestinationAmount(), amount);
+            assertEqualAmountAndCurrency(payment.getDestinationAmount(), amount);
+            Assert.assertEquals(payment.getDestinationAmount().getCounterparty(), ADDRESS1);
             Assert.assertEquals(payment.getDestinationAccount(), ADDRESS1);
         }
+    }
+
+    private void assertEqualAmountAndCurrency(Amount a1, Amount a2) {
+        Assert.assertEquals(a1.getCurrency(), a2.getCurrency());
+        Assert.assertEquals(a1.getValue(), a2.getValue());
     }
 
     @Test
@@ -281,6 +289,37 @@ public class RippleTest {
         final ConnectedResponse serverConnected = ripple.isServerConnected();
         assertResponse(serverConnected);
         Assert.assertTrue(serverConnected.isConnected());
+    }
+
+    @Test
+    public void testPlaceAndCancelOrder() throws Exception {
+        final Amount takerGets = new Amount(new BigDecimal(1), null); // XRP
+        final Amount takerPays = new Amount(new BigDecimal("0.000001"), "BTC", ADDRESS2);
+        final Order order = new Order(takerGets, takerPays, Order.Type.buy);
+        final OrderResponse resp = ripple.placeOrder(ADDRESS1, new PlaceOrderRequest(ADDRESS1_SECRET, createUUID(), order));
+        log.debug("resp = {}", resp);
+
+        assertResponse(resp);
+        final Order placedOrder = resp.getOrder();
+        assertOrder(placedOrder, takerGets, takerPays, ADDRESS1, Order.Type.buy);
+
+        final OrderResponse response = ripple.cancelOrder(ADDRESS1, placedOrder.getSequence(), new CancelOrderRequest(ADDRESS1_SECRET, createUUID()));
+        assertResponse(response);
+        final Order cancelledOrder = resp.getOrder();
+        assertOrder(cancelledOrder, takerGets, takerPays, ADDRESS1, Order.Type.buy);
+    }
+
+    private void assertOrder(Order placedOrder, Amount takerGets, Amount takerPays, String account, Order.Type type) {
+        Assert.assertNotNull(placedOrder);
+        Assert.assertNotNull(placedOrder.getHash());
+        Assert.assertNotNull(placedOrder.getLedger());
+        Assert.assertNotNull(placedOrder.getSequence());
+        Assert.assertNotNull(placedOrder.getState());
+        Assert.assertEquals(placedOrder.getAccount(), account);
+        Assert.assertEquals(placedOrder.getTakerGets(), takerGets);
+        Assert.assertEquals(placedOrder.getTakerPays(), takerPays);
+        Assert.assertEquals(placedOrder.getType(), type);
+        Assert.assertTrue(placedOrder.getFee().compareTo(BigDecimal.ZERO) > 0, String.valueOf(placedOrder.getFee()));
     }
 
     private void assertSensiblePastTimestamp(Date date) {
