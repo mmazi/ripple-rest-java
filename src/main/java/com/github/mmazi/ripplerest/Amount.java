@@ -59,6 +59,10 @@ public class Amount implements Serializable {
         return counterparty;
     }
 
+    public String getIssuer() {
+        return counterparty;
+    }
+
     @JsonProperty("issuer")
     private void setIssuer(String issuer) {
         counterparty = "".equals(issuer) ? null : issuer;
