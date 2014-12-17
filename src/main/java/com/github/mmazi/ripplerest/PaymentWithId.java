@@ -18,4 +18,9 @@ public class PaymentWithId implements Serializable {
     public Payment getPayment() {
         return payment;
     }
+
+    @Override
+    public String toString() {
+        return String.format("PaymentWithId{clientResourceId='%s', payment=%s}", clientResourceId, payment);
+    }
 }

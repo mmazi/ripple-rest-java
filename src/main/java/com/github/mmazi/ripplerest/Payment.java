@@ -292,7 +292,9 @@ public class Payment implements Serializable, HasAdditionalProperties {
     @Override
     public String toString() {
         return "Payment[" +
-                "sourceAccount='" + sourceAccount + '\'' +
+                "hash='" + hash + '\'' +
+                ", timestamp=" + timestamp +
+                ", sourceAccount='" + sourceAccount + '\'' +
                 ", sourceTag=" + sourceTag +
                 ", sourceAmount=" + sourceAmount +
                 ", sourceSlippage=" + sourceSlippage +
@@ -307,8 +309,6 @@ public class Payment implements Serializable, HasAdditionalProperties {
                 ", state=" + state +
                 ", result='" + result + '\'' +
                 ", ledger=" + ledger +
-                ", hash='" + hash + '\'' +
-                ", timestamp=" + timestamp +
                 ", fee=" + fee +
                 ", sourceBalanceChanges=" + sourceBalanceChanges +
                 ", destinationBalanceChanges=" + destinationBalanceChanges +
