@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Order {
 
@@ -81,6 +82,10 @@ public class Order {
 
     public Amount getTakerPays() {
         return takerPays;
+    }
+
+    public BigDecimal getTakerPrice() {
+        return takerPays.getValue().divide(takerGets.getValue(), RoundingMode.HALF_UP);
     }
 
     public Type getType() {
