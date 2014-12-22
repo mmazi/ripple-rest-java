@@ -1,5 +1,6 @@
 package com.github.mmazi.ripplerest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -24,6 +25,13 @@ public class Amount implements Serializable {
     private BigDecimal value;
 
     protected Amount() {
+    }
+
+    /**
+     * XRP
+     */
+    public Amount(BigDecimal value) {
+        this(value, "XRP");
     }
 
     public Amount(BigDecimal value, String currency, String counterparty) {
@@ -55,6 +63,8 @@ public class Amount implements Serializable {
         return currency;
     }
 
+    @Deprecated
+    @JsonIgnore
     public String getCounterparty() {
         return counterparty;
     }

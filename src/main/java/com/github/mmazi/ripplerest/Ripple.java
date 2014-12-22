@@ -92,6 +92,14 @@ public interface Ripple {
     @Path("accounts/{address}/orders")
     OrderResponse placeOrder(@PathParam("address") String address, PlaceOrderRequest placeOrderRequest) throws RippleException, IOException;
 
+    @GET
+    @Path("accounts/{address}/orders")
+    OrdersResponse getOrders(@PathParam("address") String address, @QueryParam("ledger") Long ledger, @QueryParam("marker") Integer marker, @QueryParam("limit") Integer limit) throws RippleException, IOException;
+
+    @GET
+    @Path("accounts/{address}/orders")
+    OrdersResponse getOrders(@PathParam("address") String address) throws RippleException, IOException;
+
     @DELETE
     @Path("accounts/{address}/orders/{sequence}")
     OrderResponse cancelOrder(@PathParam("address") String address, @PathParam("sequence") Integer sequence, CancelOrderRequest req)

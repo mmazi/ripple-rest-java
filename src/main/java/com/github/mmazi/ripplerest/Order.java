@@ -2,8 +2,6 @@ package com.github.mmazi.ripplerest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.github.mmazi.ripplerest.util.AmountSlashSerializer;
 import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import java.math.BigDecimal;
@@ -26,12 +24,12 @@ public class Order {
     @JsonProperty("offer_sequence")
     private Integer offerSequence;
 
+    private Integer flags;
+
     @JsonProperty("taker_gets")
-    @JsonSerialize(using = AmountSlashSerializer.class)
     private Amount takerGets;
 
     @JsonProperty("taker_pays")
-    @JsonSerialize(using = AmountSlashSerializer.class)
     private Amount takerPays;
 
     @JsonProperty("type")
