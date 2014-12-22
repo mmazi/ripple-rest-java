@@ -67,6 +67,14 @@ public class Order {
         return sequence;
     }
 
+    private void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+
+    private void setSeq(Integer seq) {
+        this.sequence = seq;
+    }
+
     public Amount getTakerGets() {
         return takerGets;
     }

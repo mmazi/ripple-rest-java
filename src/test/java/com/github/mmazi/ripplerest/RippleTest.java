@@ -306,6 +306,11 @@ public class RippleTest {
         final OrdersResponse orders = ripple.getOrders(ADDRESS1);
         assertResponse(orders);
         Assert.assertTrue(orders.getOrders().length > 0);
+        for (Order myOrder : orders.getOrders()) {
+            Assert.assertNotNull(myOrder.getTakerGets());
+            Assert.assertNotNull(myOrder.getTakerPays());
+            Assert.assertNotNull(myOrder.getSequence());
+        }
 
         final OrderResponse response = ripple.cancelOrder(ADDRESS1, placedOrder.getSequence(), new CancelOrderRequest(ADDRESS1_SECRET, createUUID()));
         assertResponse(response);
