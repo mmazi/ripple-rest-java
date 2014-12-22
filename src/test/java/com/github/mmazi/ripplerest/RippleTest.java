@@ -93,6 +93,8 @@ public class RippleTest {
             if (balance.getCurrency().equals("XRP")) {
                 xrpFound = true;
                 Assert.assertTrue(balance.getValue().intValue() > 0);
+            } else {
+                Assert.assertNotNull(balance.getIssuer());
             }
         }
         Assert.assertTrue(xrpFound);
@@ -237,7 +239,7 @@ public class RippleTest {
 //            Assert.assertEquals(payment.getSourceAmount().getCounterparty(), ADDRESS2); // now null is returned for some reason
             Assert.assertEquals(payment.getSourceAccount(), ADDRESS2);
             assertEqualAmountAndCurrency(payment.getDestinationAmount(), amount);
-            Assert.assertEquals(payment.getDestinationAmount().getCounterparty(), ADDRESS1);
+            Assert.assertEquals(payment.getDestinationAmount().getIssuer(), ADDRESS1);
             Assert.assertEquals(payment.getDestinationAccount(), ADDRESS1);
         }
     }

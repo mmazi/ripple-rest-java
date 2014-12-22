@@ -2,7 +2,6 @@ package com.github.mmazi.ripplerest;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
@@ -63,17 +62,15 @@ public class Amount implements Serializable {
         return currency;
     }
 
-    @Deprecated
-    @JsonIgnore
-    public String getCounterparty() {
-        return counterparty;
+    @JsonIgnore(false)
+    private void setCounterparty(String counterparty) {
+        this.counterparty = counterparty;
     }
 
     public String getIssuer() {
         return counterparty;
     }
 
-    @JsonProperty("issuer")
     private void setIssuer(String issuer) {
         counterparty = "".equals(issuer) ? null : issuer;
     }
