@@ -85,7 +85,7 @@ public class Order {
     }
 
     public BigDecimal getTakerPrice() {
-        return takerPays.getValue().divide(takerGets.getValue(), RoundingMode.HALF_UP);
+        return takerPays == null || takerGets == null ? null : takerPays.getValue().divide(takerGets.getValue(), RoundingMode.HALF_UP);
     }
 
     public Type getType() {
@@ -94,8 +94,8 @@ public class Order {
 
     @Override
     public String toString() {
-        return String.format("Order{hash='%s', ledger=%d, state='%s', account='%s', fee=%s, sequence=%d, takerGets=%s, takerPays=%s, type=%s}",
-                hash, ledger, state, account, fee, sequence, Amount.toStringSlashes(takerGets), Amount.toStringSlashes(takerPays), type);
+        return String.format("Order{hash='%s', ledger=%d, state='%s', account='%s', fee=%s, sequence=%d, takerGets=%s, takerPays=%s, type=%s, takerPrice=%s}",
+                hash, ledger, state, account, fee, sequence, Amount.toStringSlashes(takerGets), Amount.toStringSlashes(takerPays), type, getTakerPrice());
     }
 
     public static enum Type { buy, sell }
