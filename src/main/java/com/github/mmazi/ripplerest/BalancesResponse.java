@@ -1,6 +1,8 @@
 package com.github.mmazi.ripplerest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class BalancesResponse extends RippleResponse<List<Amount>> {
 
     private List<Amount> balances;
 
+    @JsonDeserialize(using = LongNullDeserializer.class)
     private Long ledger;
 
     private Boolean validated;

@@ -5,6 +5,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
 // todo: Consider creating a wrapper that unwraps the response
+// todo: Move @Consumes to the @POST methods
 @Path("v1")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

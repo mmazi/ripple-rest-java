@@ -322,10 +322,7 @@ public class RippleTest {
 
     private void assertOrder(Order placedOrder, Amount takerGets, Amount takerPays, String account, Order.Type type) {
         Assert.assertNotNull(placedOrder);
-        Assert.assertNotNull(placedOrder.getHash());
-        Assert.assertNotNull(placedOrder.getLedger());
         Assert.assertNotNull(placedOrder.getSequence());
-        Assert.assertNotNull(placedOrder.getState());
         Assert.assertEquals(placedOrder.getAccount(), account);
         Assert.assertEquals(placedOrder.getTakerGets(), takerGets);
         Assert.assertEquals(placedOrder.getTakerPays(), takerPays);
@@ -349,7 +346,7 @@ public class RippleTest {
             log.error("Request failed");
         }
         Assert.assertTrue(success, "Request failed");
-        Assert.assertTrue(response.getAdditionalProperties().isEmpty(), response.getAdditionalProperties().toString());
+        Assert.assertTrue(response.getAdditionalProperties().isEmpty(), "Any additional json properties should probably be mapped to bean properties: " + response.getAdditionalProperties().toString());
 
         final Object value = response.getValue();
         log.debug("Parsed response payload: {}", value);

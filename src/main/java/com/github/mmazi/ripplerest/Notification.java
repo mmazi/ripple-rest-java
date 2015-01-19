@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -54,6 +56,7 @@ public class Notification implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("ledger")
     @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LongNullDeserializer.class)
     private Long ledger;
 
     /**

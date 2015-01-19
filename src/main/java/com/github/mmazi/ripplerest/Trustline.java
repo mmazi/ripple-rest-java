@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
@@ -72,6 +74,9 @@ public class Trustline implements Serializable, HasAdditionalProperties {
     @JsonProperty("account_allows_rippling")
     private Boolean accountAllowsRippling;
 
+    @JsonProperty("account_froze_trustline")
+    private Boolean accountFrozeTrustline;
+
     /**
      * If true it indicates that the counterparty allows pairwise rippling out through this trustline
      */
@@ -83,6 +88,7 @@ public class Trustline implements Serializable, HasAdditionalProperties {
      */
     @JsonProperty("ledger")
     @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LongNullDeserializer.class)
     private Long ledger;
 
     /**
@@ -154,6 +160,10 @@ public class Trustline implements Serializable, HasAdditionalProperties {
         return accountAllowsRippling;
     }
 
+    public Boolean getAccountFrozeTrustline() {
+        return accountFrozeTrustline;
+    }
+
     public Boolean getCounterpartyAllowsRippling() {
         return counterpartyAllowsRippling;
     }
@@ -202,6 +212,7 @@ public class Trustline implements Serializable, HasAdditionalProperties {
                 ", authorizedByAccount=" + authorizedByAccount +
                 ", authorizedByCounterparty=" + authorizedByCounterparty +
                 ", accountAllowsRippling=" + accountAllowsRippling +
+                ", accountFrozeTrustline=" + accountFrozeTrustline +
                 ", counterpartyAllowsRippling=" + counterpartyAllowsRippling +
                 ", ledger=" + ledger +
                 ", hash='" + hash + '\'' +

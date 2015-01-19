@@ -1,11 +1,14 @@
 package com.github.mmazi.ripplerest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 public class OrdersResponse extends RippleResponse<Order[]> {
 
     private Order[] orders;
 
+    @JsonDeserialize(using = LongNullDeserializer.class)
     private Long ledger;
 
     private Boolean validated;

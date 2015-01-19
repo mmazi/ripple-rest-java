@@ -1,8 +1,10 @@
 package com.github.mmazi.ripplerest;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -43,6 +45,7 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
     @Pattern(regexp = "^[0-9]+$")
     @JsonProperty("ledger")
     @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LongNullDeserializer.class)
     private Long ledger;
 
     /**
@@ -331,6 +334,7 @@ public class AccountSettings implements Serializable, HasAdditionalProperties {
     @Pattern(regexp = "^[0-9]+$")
     @JsonProperty("ledger")
     @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LongNullDeserializer.class)
     private Long ledger;
 
     */

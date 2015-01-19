@@ -44,7 +44,7 @@ public class Amount implements Serializable {
         value = new BigDecimal(split[0]);
         if (split.length > 1) {
             currency = split[1];
-            if (split.length > 2) {
+            if (split.length > 2 && split[2].trim().length() > 0) {
                 counterparty = split[2];
             }
         }
@@ -62,9 +62,13 @@ public class Amount implements Serializable {
         return currency;
     }
 
+    public String getCounterparty() {
+        return counterparty;
+    }
+
     @JsonIgnore(false)
     private void setCounterparty(String counterparty) {
-        this.counterparty = counterparty;
+        this.counterparty = counterparty == null || counterparty.length() == 0 ? null : counterparty;
     }
 
     public String getIssuer() {

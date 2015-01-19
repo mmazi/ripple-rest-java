@@ -1,11 +1,14 @@
 package com.github.mmazi.ripplerest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import java.util.List;
 
 public class TrustlinesResponse extends RippleResponse<List<Trustline>> {
 
+    @JsonDeserialize(using = LongNullDeserializer.class)
     private Long ledger;
 
     private Boolean validated;

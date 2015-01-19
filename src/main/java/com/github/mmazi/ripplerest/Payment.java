@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.github.mmazi.ripplerest.util.LongNullDeserializer;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
@@ -129,14 +127,6 @@ public class Payment implements Serializable, HasAdditionalProperties {
     private String result;
 
     /**
-     * The index number of the ledger containing the validated or failed payment. Failed payments will only be written into the Ripple Ledger if they fail after submission to a rippled and a Ripple Network fee is claimed
-     */
-    @JsonProperty("ledger")
-    @JsonSerialize(using = ToStringSerializer.class)
-    @JsonDeserialize(using = LongNullDeserializer.class)
-    private Long ledger;
-
-    /**
      * Hash256
      * <p/>
      * The hex representation of a 256-bit hash
@@ -253,10 +243,6 @@ public class Payment implements Serializable, HasAdditionalProperties {
         return result;
     }
 
-    public Long getLedger() {
-        return ledger;
-    }
-
     public String getHash() {
         return hash;
     }
@@ -308,7 +294,6 @@ public class Payment implements Serializable, HasAdditionalProperties {
                 ", direction=" + direction +
                 ", state=" + state +
                 ", result='" + result + '\'' +
-                ", ledger=" + ledger +
                 ", fee=" + fee +
                 ", sourceBalanceChanges=" + sourceBalanceChanges +
                 ", destinationBalanceChanges=" + destinationBalanceChanges +
