@@ -5,10 +5,8 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
 // todo: Consider creating a wrapper that unwraps the response
-// todo: Move @Consumes to the @POST methods
 @Path("v1")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public interface Ripple {
 
     @GET
@@ -21,10 +19,12 @@ public interface Ripple {
 
     @POST
     @Path("accounts/{address}/settings")
+    @Consumes(MediaType.APPLICATION_JSON)
     SettingsResponse setSettings(@PathParam("address") String address, SetSettingsRequest settings) throws RippleException, IOException;
 
     @POST
     @Path("accounts/{address}/payments")
+    @Consumes(MediaType.APPLICATION_JSON)
     CreatePaymentResponse createPayment(@PathParam("address") String address, PaymentRequest paymentRequest) throws RippleException, IOException;
 
     @GET
@@ -79,6 +79,7 @@ public interface Ripple {
     
     @POST
     @Path("accounts/{address}/trustlines")
+    @Consumes(MediaType.APPLICATION_JSON)
     AddTrustlineResponse addTrustline(
             @PathParam("address") String address, AddTrustlineRequest addTrustlineRequest
     ) throws RippleException, IOException;
@@ -91,6 +92,7 @@ public interface Ripple {
 
     @POST
     @Path("accounts/{address}/orders")
+    @Consumes(MediaType.APPLICATION_JSON)
     OrderResponse placeOrder(@PathParam("address") String address, PlaceOrderRequest placeOrderRequest) throws RippleException, IOException;
 
     @GET
@@ -103,6 +105,7 @@ public interface Ripple {
 
     @DELETE
     @Path("accounts/{address}/orders/{sequence}")
+    @Consumes(MediaType.APPLICATION_JSON)
     OrderResponse cancelOrder(@PathParam("address") String address, @PathParam("sequence") Integer sequence, CancelOrderRequest req)
             throws RippleException, IOException;
 
